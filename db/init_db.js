@@ -1,17 +1,11 @@
 // code to build and initialize DB goes here
-const {
-  client, 
-} = require('./client');
+const { client } = require('./client');
+
 const { createOrders, getOrders } = require('./orders');
 
-const {
-  createProduct, 
-  getProduct
-} = require('./products')
+const {createProduct,  getProduct } = require('./products')
 
-const {
-  addOrderProducts
-} = require('./order_products')
+const { addOrderProducts } = require('./order_products')
 
 async function buildTables() {
   try {

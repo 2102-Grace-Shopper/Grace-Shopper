@@ -45,6 +45,7 @@ async function getProductByCategory(category) {
 }
 
 module.exports = {
+    client, 
     createProduct, 
     getProduct,
     getProductByCategory

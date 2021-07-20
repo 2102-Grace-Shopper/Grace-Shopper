@@ -1,7 +1,8 @@
 const { client } = require('./client');
 //waiting on users to add usersId for createOrders Function
 //still need to create for orders added by usersId,
-//still need to create a function for carts and it components (update, create, and cancel orders)
+//still need to create cart and it components when updating, completion, and cancelation
+
 async function createOrders(order) {
     const {status,  datePlaced } = order;
     try {
@@ -28,6 +29,18 @@ async function getOrders() {
     }
 }
 
+async function getOrderById(id) {
+    try {
+        const { rows: [order] } = await client.query(`
+        SELECT * FROM orders
+        WHERE id = $1,
+        `, [id])
+
+        return order;
+    } catch (error) {
+        throw error;
+    }
+}
 async function getOrdersByProducts({id}) {
     try {
         const { rows: orders } = await client.query(`
@@ -41,12 +54,43 @@ async function getOrdersByProducts({id}) {
         throw error;
     }
 }
+//Under Construction carts//waiting for usersId
+async function getCartsByUserId() {
+
+  try {
+      
+  } catch (error) {
+      throw error;
+  }
+}
+
+//Under Construction waiting for users
+async function getOrdersByUser() {
+
+}
+
+//Under Construction allows for orders/carts to be update
+async function updateOrder() {
+
+}
+
+//Under Constructions sets the orders status to completed when purchase/send to the cart
+async function completedOrder() {
+
+}
+
+//Under Construction sets the order status to cancel when item is out of stock/or user decides to cancel the order
+async function cancelOrder() {
+
+}
 
 
 
 
 module.exports = {
+    client,
     createOrders,
     getOrders, 
-    getOrdersByProducts
+    getOrdersByProducts,
+    getOrderById
 }

@@ -29,6 +29,7 @@ async function addOrderProducts(orderProducts) {
     }
 }
 module.exports = {
+    client,
     getOrderProductsById,
     addOrderProducts
 }
