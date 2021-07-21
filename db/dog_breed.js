@@ -1,7 +1,7 @@
 const { client } = require("./client");
 
 const createDogBreed = async (dogId, breedId) => {
-    console.log(dogd, breedId);
+    console.log(dogId, breedId);
     try {
       const { rows } = await client.query(
         `

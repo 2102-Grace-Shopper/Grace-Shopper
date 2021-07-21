@@ -321,9 +321,33 @@ async function populateInitialBreedData(){
   }
 }
 
+async function populateInitialDogBreedData(){
+  try{
+    console.log("Creating connection between dog and breed...");
+    const firstDogBreed = await createDogBreed(1, 1);
+    const secondDogBreed = await createDogBreed(3, 2);
+    const thirdDogBreed = await createDogBreed(4, 6);
+
+    console.log("Dog and Breed connection created: ", firstDogBreed);
+    console.log("Dog and Breed connection created: ", secondDogBreed);
+    console.log("Dog and Breed connection created: ", thirdDogBreed);
+    console.log("Finished creating dog and breed connection!");
+
+    const testGetAllDogBreeds = await getAllDogBreeds(1);
+    console.log("Test to see if testGetAllDogBreeds works", testGetAllDogBreeds);
+
+    const testDogBreedById = await getDogBreedById(1);
+    console.log("Test to see if testDogById works", testDogBreedById);
+
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 buildTables()
   .then(populateInitialDogData)
   .then(populateInitialBreedData)
+  .then(populateInitialDogBreedData)
   .catch(console.error)
   .finally(() => client.end());
