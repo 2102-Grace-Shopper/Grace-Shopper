@@ -2,20 +2,25 @@ const { client } = require("./client");
 const { createDogBreed } = require("./dog_breed");
 const { createBreeds } = require("./breed");
 
-const addBreedsToDog = async (dogId, breedList = []) => {
-    try {
-      const createDogBreedPromises = breedList.map((breed) =>
-        createDogBreed(dogId, breed.id)
-      );
+// const addBreedsToDog = async (dogId, breedList = []) => {
+//     try {
+//       const createDogBreedPromises = breedList.map((breed) =>
+//         createDogBreed(dogId, breed.id)
+//       );
   
-      await Promise.all(createDogBreedPromises);
-  
-      return await getDogById(dogId);
-    } catch (error) {
-      throw error;
-    }
-  };
+//       await Promise.all(createDogBreedPromises);
 
+//       // console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
+  
+//       return await getDogById(dogId);
+//     } catch (error) {
+//       throw error;
+//     }
+//   };
+
+//   addBreedsToDog(2, 3)
+
+// Works!
 const createDogs = async ({name, description, price, age = []}) => {
     try {
     const { rows: [dogs] } = await client.query(`
@@ -24,6 +29,8 @@ const createDogs = async ({name, description, price, age = []}) => {
       RETURNING *;
     `, [name, description, price, age]);
   
+    // console.log("This is the createDogs() Test: ", dogs)
+
     return dogs;
 
     } catch (error) {
@@ -31,24 +38,27 @@ const createDogs = async ({name, description, price, age = []}) => {
     }
   };
 
+//   createDogs()
+
+// Works!
   const getAllDogs = async () => {
     try {
-      const { rows: dogIds } = await client.query(`
-        SELECT id
-        FROM dogs
-      `);
-  
-      const dogs = await Promise.all(dogIds.map(
-        dog => getDogById(dog.id)
-      ));
-  
-      return dogs;
-    } catch (err) {
-      console.error(err.message);
-      throw err;
-    }
+        const { rows } = await client.query(`
+          SELECT * 
+          FROM dogs;
+          `);
+    
+          console.log("This is the getAllDogs() Test: ", rows)
+
+        return rows;
+      } catch (error) {
+        throw error;
+      }
   }
 
+  getAllDogs()
+
+  //Works! Just need to test breeds
   const getDogById = async (dogId) => {
     try {
       const {
@@ -61,6 +71,8 @@ const createDogs = async ({name, description, price, age = []}) => {
         `,
         [dogId]
       );
+
+      console.log("This is the getDogById() Test: ", dog)
   
       if (!dog) {
         throw {
@@ -69,17 +81,17 @@ const createDogs = async ({name, description, price, age = []}) => {
         };
       }
   
-      const { rows: breed } = await client.query(
-        `
-        SELECT breed.*
-        FROM breed
-        JOIN dog_breed ON breed.id = dog_breed."breedId"
-        WHERE dog_breed."dogId" = $1;
-        `,
-        [dogId]
-      );
+    //   const { rows: breed } = await client.query(
+    //     `
+    //     SELECT breed.*
+    //     FROM breed
+    //     JOIN dog_breed ON breed.id = dog_breed."breedId"
+    //     WHERE dog_breed."dogId" = $1;
+    //     `,
+    //     [dogId]
+    //   );
   
-      dog.breed = breed;
+    //   dog.breed = breed;
   
       return dog;
     } catch (error) {
@@ -87,75 +99,78 @@ const createDogs = async ({name, description, price, age = []}) => {
     }
   };
 
-  const getDogByDogName = async (breed) => {
-    try {
-      const { rows: dogs } = await client.query(
-        `
-          SELECT dogs.id
-          FROM dogs
-          JOIN dog_breed ON dogs.id = dog_breed."dogId"
-          JOIN breed ON breed.id = dog_breed."breedId"
-          WHERE breed.breed = $1;
-          `,
-        breed
-      );
+  getDogById(1)
+
+//   const getDogByDogName = async (breed) => {
+//     try {
+//       const { rows: dogs } = await client.query(
+//         `
+//           SELECT dogs.id
+//           FROM dogs
+//           JOIN dog_breed ON dogs.id = dog_breed."dogId"
+//           JOIN breed ON breed.id = dog_breed."breedId"
+//           WHERE breed.breed = $1;
+//           `,
+//         breed
+//       );
   
-      return await Promise.all(dogs.map((dog) => getDogById(dog.id)));
-    } catch (error) {}
-  };
+//       return await Promise.all(dogs.map((dog) => getDogById(dog.id)));
+//     } catch (error) {}
+//   };
 
 
-      const updateDog = async (dogId, fields = {}) => {
-        const { breeds } = fields;
-        delete fields.breeds;
+    //   const updateDog = async (dogId, fields = {}) => {
+    //     const { breeds } = fields;
+    //     delete fields.breeds;
       
-        const setString = Object.keys(fields)
-          .map((key, index) => `"${key}"=$${index + 1}`)
-          .join(", ");
+    //     const setString = Object.keys(fields)
+    //       .map((key, index) => `"${key}"=$${index + 1}`)
+    //       .join(", ");
       
-        if (setString.length === 0) return;
+    //     if (setString.length === 0) return;
       
-        try {
-          if (setString.length > 0) {
-            await client.query(
-              `
-                UPDATE dogs
-                SET ${setString}
-                WHERE id = ${dogId}
-                RETURNING *;
-                `,
-              Object.values(fields)
-            );
-          }
+    //     try {
+    //       if (setString.length > 0) {
+    //         await client.query(
+    //           `
+    //             UPDATE dogs
+    //             SET ${setString}
+    //             WHERE id = ${dogId}
+    //             RETURNING *;
+    //             `,
+    //           Object.values(fields)
+    //         );
+    //       }
       
-          // Returns early if there are no breeds to update
-          if (breeds === undefined) {
-            return await getDogById(dogId);
-          }
+    //       // Returns early if there are no breeds to update
+    //       if (breeds === undefined) {
+    //         return await getDogById(dogId);
+    //       }
       
-          // Make any new breeds that need to be made -- need createBreeds from Rene
-          const breedList = await createBreeds(breeds);
-          const breedListIdString = breedList.map((breed) => `${breed.id}`).join(", ");
+    //       // Make any new breeds that need to be made -- need createBreeds from Rene
+    //       const breedList = await createBreed(breeds);
+    //       const breedListIdString = breedList.map((breed) => `${breed.id}`).join(", ");
       
-          await client.query(
-            `
-            DELETE FROM dog_breed
-            WHERE "breedId"
-            NOT IN (${breedListIdString})
-            AND "dogId" = $1;
-            `,
-            [dogId]
-          );
+    //       await client.query(
+    //         `
+    //         DELETE FROM dog_breed
+    //         WHERE "breedId"
+    //         NOT IN (${breedListIdString})
+    //         AND "dogId" = $1;
+    //         `,
+    //         [dogId]
+    //       );
       
-          // Create dog_breed as necessary 
-          await addBreedsToDog(dogId, breedList);
+    //       // Create dog_breed as necessary 
+    //       await addBreedsToDog(dogId, breedList);
       
-          return await getDogById(dogId);
-        } catch (error) {
-          throw error;
-        }
-      };
+    //       return await getDogById(dogId);
+    //     } catch (error) {
+    //       throw error;
+    //     }
+    //   };
 
+// Works!
       const deleteDog = async (id) => {
         try {
           await client.query(
@@ -165,18 +180,23 @@ const createDogs = async ({name, description, price, age = []}) => {
             `,
             [id]
           );
+
+        //   console.log("This is the deleteDog() Test: ", id)
+
         } catch (error) {
           throw error;
         }
       };
 
+      deleteDog()
+
 
 module.exports = {
-    addBreedsToDog,
+    // addBreedsToDog,
     createDogs,
     getAllDogs,
     getDogById,
-    updateDog,
-    getDogByDogName,
+    // updateDog,
+    // getDogByDogName,
     deleteDog
 }

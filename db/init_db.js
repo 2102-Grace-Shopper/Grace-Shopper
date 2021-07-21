@@ -1,5 +1,7 @@
 const { client } = require('./client');
 const { createDogs } = require('./dogs')
+const { createBreed } = require('./breed')
+const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dog_breed')
 
 async function buildTables() {
   try {
@@ -33,7 +35,7 @@ async function buildTables() {
 
      CREATE TABLE breed(
        id SERIAL PRIMARY KEY,
-       breed VARCHAR(255)
+       name VARCHAR(255)
      );
 
      CREATE TABLE dog_breed(
@@ -92,7 +94,7 @@ async function buildTables() {
   }
 }
 
-async function populateInitialData() {
+async function populateInitialDogData() {
   try {
     console.log("Creating Dogs...");
     const seedDataDogs = [
@@ -246,7 +248,82 @@ async function populateInitialData() {
   }
 }
 
+async function populateInitialBreedData(){
+  try{
+    console.log("Creating Breeds...");
+    const seedDataBreeds = [
+      {
+        id: 1,
+        name: "Shiba Inu"
+      },
+      {
+        id: 2,
+        name: "Doberman Pinscher"
+      },
+      {
+        id: 3,
+        name: "Great Dane"
+      },
+      {
+        id: 4,
+        name: "Siberian Husky"
+      },
+      {
+        id: 5,
+        name: "Boxer"
+      },
+      {
+        id: 6,
+        name: "Rottweiler"
+      },
+      {
+        id: 7,
+        name: "Poodle"
+      },
+      {
+        id: 8,
+        name: "French Bulldog"
+      },
+      {
+        id: 9,
+        name: "Beagle"
+      },
+      {
+        id: 10,
+        name: "Pitbull"
+      },
+      {
+        id: 11,
+        name: "Golden Retriever"
+      },
+      {
+        id: 12,
+        name: "German Shepherd"
+      },
+      {
+        id: 13,
+        name: "Shih Tzu"
+      },
+      {
+        id: 14,
+        name: "Dachshund"
+      },
+      {
+        id: 15,
+        name: "Pug"
+      },
+    ];
+
+    const launchSeedDataBreeds = await Promise.all(seedDataBreeds.map((breed) => createBreed(breed)));
+    console.log("Here are your seeded breeds:", launchSeedDataBreeds)
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 buildTables()
-  .then(populateInitialData)
+  .then(populateInitialDogData)
+  .then(populateInitialBreedData)
   .catch(console.error)
   .finally(() => client.end());
