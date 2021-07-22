@@ -7,6 +7,10 @@ const {createProduct,  getProduct } = require('./products')
 
 const { addOrderProducts } = require('./order_products')
 
+const {createReviews} = require('./reviews')
+
+ const {createUser} =require('./users')
+
 async function buildTables() {
   try {
     client.connect();
@@ -194,14 +198,17 @@ async function populateInitialOrders() {
     const seedOrders = [
       {
         status: 'created',
+        userId: '1',
         datePlaced: '2021-07-19 18:10:25-07'
       },
       {
         status: 'canceled',
+        userId: '2',
         datePlaced: '2021-06-05 10:10:25-07'
       },
       {
         status:'created',
+        userId: '3',
         datePlaced: '2021-05-22 11:10:25-07'
       }
     ]
@@ -254,9 +261,71 @@ async function populateInitialOrderProducts() {
   }
 }
 
+
+async function populateInitialDogBreedData(){
+  try{
+    console.log("Creating Reviews...");
+    const seedDataReviews = [
+      {
+        id: 1,
+        title: "Review 1",
+        content: "This is a test"
+      },
+    ];
+
+    const launchSeedDataReviews = await Promise.all(seedDataReviews.map((review) => createReviews(review)));
+    console.log("Here are your seeded reviews:", launchSeedDataReviews)
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialUsers() {
+  try {
+    console.log("Creating users...");
+    // create useful starting data
+    const seedUsers = [
+      {
+        id: 1,
+        firstName: "Bob",
+        lastName: "Smith",
+        email: "bobswag@gswag.com",
+        username: "bobbyboi",
+        password: "swag",
+        isAdmin: false
+      },
+      {
+        id: 2,
+        firstName: "Admin",
+        lastName: "Admin",
+        email: "Admin@admin.com",
+        username: "Admin",
+        password: "Admin",
+        isAdmin: true
+      },
+      {
+        id: 3,
+        firstName: "Michael",
+        lastName: "Scott",
+        email: "dundermifflin@gmail.com",
+        username: "michaelscott",
+        password: "password",
+        isAdmin: false
+      }
+    ]
+    const launchUsers = await Promise.all(seedUsers.map((user) => createUser(user)))
+    console.log('Here are the users', launchUsers);
+  } catch (error) {
+    throw error;
+  }
+};
+
 buildTables()
   .then(populateInitialData)
   .then(populateInitialOrders)
   .then(populateInitialOrderProducts)
+  .then(populateInitialDogBreedData)
+  .then(populateInitialUsers)
   .catch(console.error)
   .finally(() => client.end());
