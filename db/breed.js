@@ -1,13 +1,13 @@
 const { client } = require("./client");
 
 async function createBreed(breed) {
-    const {name, id} = breed;
+    const {id, name} = breed;
     try{
         const {rows: [breed]} = await client.query(`
-        INSERT INTO breeds(name, id)
-        VALUES($1 $2)
+        INSERT INTO breed(id, name)
+        VALUES($1, $2)
         RETURNING *
-        `, [name, id])
+        `, [id, name])
         return breed;
     } catch (error) {
         throw error
@@ -18,7 +18,7 @@ async function getAllBreeds(){
     try{
     const {rows} = await client.query(`
     SELECT *
-    FROM breeds
+    FROM breed
     `)
 
     return rows
@@ -31,7 +31,7 @@ const getBreedById = async breedId => {
     try {
         const { rows: [ breed ] } = await client.query(`
             SELECT *
-            FROM breeds
+            FROM breed
             WHERE id=$1;
         `, [ breedId ]);
 
