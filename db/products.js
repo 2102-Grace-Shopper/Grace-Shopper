@@ -1,7 +1,5 @@
 const {client} = require('./client')
 
-//still need to add a function for reviewing products 
-
 async function createProduct(product) {
     const {name, description, price, inStock, imageUrl, category } = product;
      try {
@@ -44,9 +42,25 @@ async function getProductByCategory(category) {
     }
 }
 
+//Under Construction... still waiting for reviews to add onto...
+async function getProductById(id) {
+    try {
+        const { rows: [product] } = await client.query(`
+        SELECT *
+        FROM products
+        WHERE id=$1
+        `, [id])
+
+        return product
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     client, 
     createProduct, 
     getProduct,
-    getProductByCategory
+    getProductByCategory,
+    getProductById
 }

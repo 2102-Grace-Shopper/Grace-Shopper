@@ -1,7 +1,6 @@
 const { client } = require('./client');
 //waiting on users to add usersId for createOrders Function
 //still need to create for orders added by usersId,
-//still need to create cart and it components when updating, completion, and cancelation
 
 async function createOrders(order) {
     const {status,  datePlaced } = order;
@@ -69,18 +68,62 @@ async function getOrdersByUser() {
 
 }
 
-//Under Construction allows for orders/carts to be update
-async function updateOrder() {
+async function updateOrder({id, ...fields}) {
+    const setString = Object.keys(fields).map((key, index) => `"${ key }"=$${ index + 1}`
+    ).join(', ');
+
+    const objVals = Object.values(fields)
+
+    if(setString.length === 0) {
+        return;
+    } 
+    objVals.push(id)
+
+    try {
+        if(setString.length > 0) {
+            const { rows: [order] } = await client.query(`
+            UPDATE orders
+            SET ${setString}
+            WHERE id=$${objVals.length}
+            RETURNING *;
+            `, objVals);
+
+            return order
+        }
+    } catch (error) {
+        throw error;
+    }
 
 }
 
-//Under Constructions sets the orders status to completed when purchase/send to the cart
 async function completedOrder() {
+    try {
+        const {rows: [order] } = await client.query(`
+        UPDATE orders
+        SET status='completed'
+        WHERE id=$1
+        RETURNING *
+        `, [id])
+
+        return order
+    } catch (error) {
+        throw error;
+    }
 
 }
 
-//Under Construction sets the order status to cancel when item is out of stock/or user decides to cancel the order
 async function cancelOrder() {
+    try {
+        const { rows: [order] } = await client.query(`
+        UPDATE orders
+        SET status='cancelled'
+        WHERE id=$1
+        RETURNING *
+        `, [id])
+        return order;
+    } catch (error) {
+        throw error;
+    }
 
 }
 
@@ -92,5 +135,8 @@ module.exports = {
     createOrders,
     getOrders, 
     getOrdersByProducts,
-    getOrderById
+    getOrderById,
+    updateOrder,
+    completedOrder,
+    cancelOrder
 }

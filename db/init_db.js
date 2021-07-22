@@ -38,7 +38,7 @@ async function buildTables() {
      );
      CREATE TABLE breed(
        id SERIAL PRIMARY KEY,
-       breed VARCHAR(255)
+       name VARCHAR(255)
      );
      CREATE TABLE dog_breed(
        id SERIAL PRIMARY KEY,
