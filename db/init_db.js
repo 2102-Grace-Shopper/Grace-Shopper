@@ -2,6 +2,7 @@ const { client } = require('./client');
 const { createDogs } = require('./dogs')
 const { createBreed } = require('./breed')
 const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dog_breed')
+const { createReviews } = require('./reviews')
 
 async function buildTables() {
   try {
@@ -338,6 +339,25 @@ async function populateInitialDogBreedData(){
 
     const testDogBreedById = await getDogBreedById(1);
     console.log("Test to see if testDogById works", testDogBreedById);
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialDogBreedData(){
+  try{
+    console.log("Creating Reviews...");
+    const seedDataReviews = [
+      {
+        id: 1,
+        title: "Review 1",
+        content: "This is a test"
+      },
+    ];
+
+    const launchSeedDataReviews = await Promise.all(seedDataReviews.map((review) => createReviews(review)));
+    console.log("Here are your seeded reviews:", launchSeedDataReviews)
 
   } catch (error) {
     throw error;
