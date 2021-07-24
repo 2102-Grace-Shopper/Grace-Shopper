@@ -11,7 +11,7 @@ const addBreedsToDog = async (dogId, breedList = []) => {
   
       await Promise.all(createDogBreedPromises);
 
-      console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
+    //   console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
   
       return await getDogById(dogId);
     } catch (error) {

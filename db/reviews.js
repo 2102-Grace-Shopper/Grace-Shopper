@@ -8,8 +8,6 @@ const createReviews = async ({title, content = []}) => {
       VALUES ($1, $2)
       RETURNING *;
     `, [title, content]);
-  
-    // console.log("This is the createReviews() Test: ", reviews)
 
     return reviews;
 
@@ -34,7 +32,6 @@ const createReviews = async ({title, content = []}) => {
     }
 }
 
-// getReviews()
 
 // Works!
 async function getReviewsById(id) {
@@ -44,61 +41,65 @@ async function getReviewsById(id) {
         WHERE id = $1;
         `, [id])
 
-        console.log("This is the getReviewsById() Test: ", review)
-
         return review;
     } catch (error) {
         throw error;
     }
 }
 
-// getReviewsById(1)
 
-async function getReviewsByProducts({id}) {
-    try {
-
-    } catch (error) {
-        throw error;
-    }
-}
-
-async function getReviewsByUsers({id}) {
-    try {
-
-    } catch (error) {
-        throw error;
-    }
-}
-
-
-
-// async function updateOrder({id, ...fields}) {
-//     const setString = Object.keys(fields).map((key, index) => `"${ key }"=$${ index + 1}`
-//     ).join(', ');
-
-//     const objVals = Object.values(fields)
-
-//     if(setString.length === 0) {
-//         return;
-//     } 
-//     objVals.push(id)
-
+// async function getReviewsByProducts({id}) {
 //     try {
-//         if(setString.length > 0) {
-//             const { rows: [order] } = await client.query(`
-//             UPDATE orders
-//             SET ${setString}
-//             WHERE id=$${objVals.length}
-//             RETURNING *;
-//             `, objVals);
-
-//             return order
-//         }
+//         const { rows: reviews } = await client.query(`
+//         SELECT *
+//         FROM reviews
+//         JOIN orders ON orders.id=order_products."orderId"
+//         WHERE "productId"=${id}
+//          `);
+//          return orders;
 //     } catch (error) {
 //         throw error;
 //     }
-
 // }
+
+
+// async function getReviewsByUsers({id}) {
+//     try {
+
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+
+//Works!
+async function updateReview({id, ...fields}) {
+    const setString = Object.keys(fields).map((key, index) => `"${ key }"=$${ index + 1}`
+    ).join(', ');
+
+    const objVals = Object.values(fields)
+
+    if(setString.length === 0) {
+        return;
+    } 
+    objVals.push(id)
+
+    try {
+        if(setString.length > 0) {
+            const { rows: [review] } = await client.query(`
+            UPDATE reviews
+            SET ${setString}
+            WHERE id=$${objVals.length}
+            RETURNING *;
+            `, objVals);
+
+            return review
+        }
+    } catch (error) {
+        throw error;
+    }
+
+}
 
 //Works!
 const deleteReview = async (id) => {
@@ -111,19 +112,18 @@ const deleteReview = async (id) => {
         [id]
       );
 
-    //   console.log("This is the deleteReview() Test: ", id)
-
     } catch (error) {
       throw error;
     }
   };
-
-//   deleteReview(1)
 
 
 module.exports = {
     createReviews,
     getReviews,
     getReviewsById,
+    // getReviewsByProducts,
+    // getReviewsByUsers,
+    updateReview,
     deleteReview
 }
