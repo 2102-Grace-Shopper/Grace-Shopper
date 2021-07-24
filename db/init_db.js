@@ -1,9 +1,10 @@
 // code to build and initialize DB goes here
 const {
   client
-  // other db methods 
+  // other db methods
 } = require('./index');
 
+// This is pretty concerning!
 async function buildTables() {
   try {
     client.connect();
