@@ -1,6 +1,12 @@
 // code to build and initialize DB goes here
 const { client } = require('./client');
 
+const { createDogs } = require('./dogs')
+
+const { createBreed } = require('./breed')
+
+const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dog_breed')
+
 const { createOrders, getOrders } = require('./orders');
 
 const {createProduct,  getProduct } = require('./products')
@@ -191,24 +197,24 @@ async function populateInitialData() {
     throw error;
   }
 }
-//waiting on users to add usersId
+
 async function populateInitialOrders() {
   console.log('Starting to Create Orders')
   try {
     const seedOrders = [
       {
         status: 'created',
-        userId: '1',
+        userId: '3',
         datePlaced: '2021-07-19 18:10:25-07'
       },
       {
         status: 'canceled',
-        userId: '2',
+        userId: '1',
         datePlaced: '2021-06-05 10:10:25-07'
       },
       {
         status:'created',
-        userId: '3',
+        userId: '2',
         datePlaced: '2021-05-22 11:10:25-07'
       }
     ]
@@ -216,6 +222,7 @@ async function populateInitialOrders() {
     console.log('Orders created')
     console.log(launchOrders)
   } catch (error) {
+    console.error("Error Populating orders!")
     throw error;
   }
 }
@@ -262,14 +269,16 @@ async function populateInitialOrderProducts() {
 }
 
 
-async function populateInitialDogBreedData(){
+async function populateInitialReviews(){
   try{
     console.log("Creating Reviews...");
     const seedDataReviews = [
       {
-        id: 1,
+        id: "1",
         title: "Review 1",
-        content: "This is a test"
+        content: "This is a test",
+        userId:1,
+        productId: 1
       },
     ];
 
@@ -287,7 +296,6 @@ async function populateInitialUsers() {
     // create useful starting data
     const seedUsers = [
       {
-        id: 1,
         firstName: "Bob",
         lastName: "Smith",
         email: "bobswag@gswag.com",
@@ -296,7 +304,6 @@ async function populateInitialUsers() {
         isAdmin: false
       },
       {
-        id: 2,
         firstName: "Admin",
         lastName: "Admin",
         email: "Admin@admin.com",
@@ -305,7 +312,6 @@ async function populateInitialUsers() {
         isAdmin: true
       },
       {
-        id: 3,
         firstName: "Michael",
         lastName: "Scott",
         email: "dundermifflin@gmail.com",
@@ -321,11 +327,266 @@ async function populateInitialUsers() {
   }
 };
 
+async function populateInitialDogData() {
+  try {
+    console.log("Creating Dogs...");
+    const seedDataDogs = [
+      { 
+        id: 1,
+        name: "Fido",
+        description: "a classic great dog",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 2,
+        name: "Bella",
+        description: "smart and witty",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 3,
+        name: "Charlie",
+        description: "loves to play fetch",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 4,
+        name: "Lucy",
+        description: "fast and playful",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 5,
+        name: "Duke",
+        description: "a beautiful hairy dog",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 6,
+        name: "Molly",
+        description: "loves to hangout in the sunshine",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 7,
+        name: "JoJo",
+        description: "a great cuddler",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 8,
+        name: "Oliver",
+        description: "a very sophisticated animal",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 9,
+        name: "Penny",
+        description: "a bit ferocious but a nice dog",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 10,
+        name: "Zeus",
+        description: "the king of all dogs",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 11,
+        name: "Scout",
+        description: "the best adventure dog in the world",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 12,
+        name: "Crinkles",
+        description: "the most lovable face ever",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 13,
+        name: "Moose",
+        description: "big, cuddly and hairy",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 14,
+        name: "Dexter",
+        description: "too smart for his own good",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 15,
+        name: "Bandit",
+        description: "he'll still your food, but you'll still love him",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 16,
+        name: "Oakley",
+        description: "a pretty amazing dog",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 17,
+        name: "Ace",
+        description: "always comes through when you need him",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 18,
+        name: "Winnie",
+        description: "old and wise",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 19,
+        name: "Dakota",
+        description: "the perfect mountain dog for your backpacking adventures",
+        price: 125,
+        age: 2,
+      },
+      { 
+        id: 20,
+        name: "Sunny",
+        description: "always smiling, making you laugh",
+        price: 125,
+        age: 2,
+      }
+    ];
+
+    const launchSeedDataDogs = await Promise.all(seedDataDogs.map((dog) => createDogs(dog)));
+    // console.log("Here are your seeded dogs:", launchSeedDataDogs);
+       console.log("Dogs are seeded");
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialBreedData(){
+  try{
+    console.log("Creating Breeds...");
+    const seedDataBreeds = [
+      {
+        id: 1,
+        name: "Shiba Inu"
+      },
+      {
+        id: 2,
+        name: "Doberman Pinscher"
+      },
+      {
+        id: 3,
+        name: "Great Dane"
+      },
+      {
+        id: 4,
+        name: "Siberian Husky"
+      },
+      {
+        id: 5,
+        name: "Boxer"
+      },
+      {
+        id: 6,
+        name: "Rottweiler"
+      },
+      {
+        id: 7,
+        name: "Poodle"
+      },
+      {
+        id: 8,
+        name: "French Bulldog"
+      },
+      {
+        id: 9,
+        name: "Beagle"
+      },
+      {
+        id: 10,
+        name: "Pitbull"
+      },
+      {
+        id: 11,
+        name: "Golden Retriever"
+      },
+      {
+        id: 12,
+        name: "German Shepherd"
+      },
+      {
+        id: 13,
+        name: "Shih Tzu"
+      },
+      {
+        id: 14,
+        name: "Dachshund"
+      },
+      {
+        id: 15,
+        name: "Pug"
+      },
+    ];
+
+    const launchSeedDataBreeds = await Promise.all(seedDataBreeds.map((breed) => createBreed(breed)));
+    // console.log("Here are your seeded breeds:", launchSeedDataBreeds)
+    console.log("Breeds are seeded");
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialDogBreedData(){
+  try{
+    console.log("Creating connection between dog and breed...");
+    const firstDogBreed = await createDogBreed(1, 1);
+    const secondDogBreed = await createDogBreed(3, 2);
+    const thirdDogBreed = await createDogBreed(4, 6);
+
+    // console.log("Dog and Breed connection created: ", firstDogBreed);
+    // console.log("Dog and Breed connection created: ", secondDogBreed);
+    // console.log("Dog and Breed connection created: ", thirdDogBreed);
+    console.log("Finished creating dog and breed connection!");
+
+    const testGetAllDogBreeds = await getAllDogBreeds(1);
+    // console.log("Test to see if testGetAllDogBreeds works", testGetAllDogBreeds);
+
+    const testDogBreedById = await getDogBreedById(1);
+    // console.log("Test to see if testDogById works", testDogBreedById);
+
+  } catch (error) {
+    throw error;
+  }
+}
+
 buildTables()
   .then(populateInitialData)
   .then(populateInitialOrders)
   .then(populateInitialOrderProducts)
   .then(populateInitialDogBreedData)
   .then(populateInitialUsers)
+  .then(populateInitialBreedData)
+  .then(populateInitialDogData)
+  .then(populateInitialReviews)
   .catch(console.error)
   .finally(() => client.end());

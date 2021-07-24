@@ -1,5 +1,7 @@
 const {client} = require('./client')
 
+const {getReviewsById} = require('./reviews')
+
 async function createProduct(product) {
     const {name, description, price, inStock, imageUrl, category } = product;
      try {
@@ -51,11 +53,18 @@ async function getProductById(id) {
         WHERE id=$1
         `, [id])
 
+        product.reviews = await getReviewsById(product.id)
+        product.reviews.forEach(review => {
+            delete review.productId
+        });
+
         return product
     } catch (error) {
         
     }
 }
+
+// getProductById(console.log(1,1))
 
 module.exports = {
     client, 
