@@ -2,22 +2,6 @@ const { client } = require("./client");
 const { createDogBreed } = require("./dog_breed");
 const { createBreed } = require("./breed");
 
-//Needs Help
-// const addBreedsToDog = async (dogId, breedList = []) => {
-//     try {
-//       const createDogBreedPromises = breedList.map((breed) =>
-//         createDogBreed(dogId, breed.id)
-//       );
-  
-//       await Promise.all(createDogBreedPromises);
-
-//     //   console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
-  
-//       return await getDogById(dogId);
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
 
 const addBreedToDog = async ({dogId, breedId}) => {
   // console.log(dogId, breedId);
@@ -29,14 +13,14 @@ const addBreedToDog = async ({dogId, breedId}) => {
       ON CONFLICT ("dogId", "breedId") DO NOTHING
       RETURNING *;
     `, [ dogId, breedId ])
-    console.log("This your addBreedToDog() solution: ", rows);
+    // console.log("This your addBreedToDog() solution: ", rows);
 
     return rows;
   } catch (error) {
     throw error
   }
 }
-addBreedToDog(5,3)
+// addBreedToDog(5,3)
   
 
 // Works!
@@ -112,7 +96,7 @@ const createDogs = async ({name, description, price, age = []}) => {
 //   getDogById(1)
 
   //Works!    
-  const getDogByDogName = async (breed) => {
+  const getDogsByBreadName = async (name) => {
     try {
       const { rows: dogs } = await client.query(
         `
@@ -120,9 +104,9 @@ const createDogs = async ({name, description, price, age = []}) => {
           FROM dogs
           JOIN dog_breed ON dogs.id = dog_breed."dogId"
           JOIN breed ON breed.id = dog_breed."breedId"
-          WHERE breed.breed = $1;
+          WHERE breed.name = $1;
           `,
-        breed
+        name
       );
   
       return await Promise.all(dogs.map((dog) => getDogById(dog.id)));
@@ -174,7 +158,7 @@ const createDogs = async ({name, description, price, age = []}) => {
           );
       
           // Create dog_breed as necessary 
-          await addBreedsToDog(dogId, breedList);
+          await addBreedToDog(dogId, breedId);
       
           return await getDogById(dogId);
         } catch (error) {
@@ -205,7 +189,7 @@ module.exports = {
     createDogs,
     getAllDogs,
     getDogById,
-    // updateDog,
-    getDogByDogName,
+    updateDog,
+    getDogsByBreadName,
     deleteDog
 }
