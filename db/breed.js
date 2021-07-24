@@ -16,6 +16,7 @@ async function createBreed(breed) {
     }
 }
 
+//Works!
 async function getAllBreeds(){
   try{
   const {rows} = await client.query(`
@@ -29,6 +30,7 @@ async function getAllBreeds(){
 }
 }
 
+//Works!
 const getBreedById = async breedId => {
   try {
       const { rows: [ breed ] } = await client.query(`
