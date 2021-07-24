@@ -3,21 +3,40 @@ const { createDogBreed } = require("./dog_breed");
 const { createBreed } = require("./breed");
 
 //Needs Help
-const addBreedsToDog = async (dogId, breedList = []) => {
-    try {
-      const createDogBreedPromises = breedList.map((breed) =>
-        createDogBreed(dogId, breed.id)
-      );
+// const addBreedsToDog = async (dogId, breedList = []) => {
+//     try {
+//       const createDogBreedPromises = breedList.map((breed) =>
+//         createDogBreed(dogId, breed.id)
+//       );
   
-      await Promise.all(createDogBreedPromises);
+//       await Promise.all(createDogBreedPromises);
 
-    //   console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
+//     //   console.log("This is the addBreedsToDog() Test: ", createDogBreedPromises)
   
-      return await getDogById(dogId);
-    } catch (error) {
-      throw error;
-    }
-  };
+//       return await getDogById(dogId);
+//     } catch (error) {
+//       throw error;
+//     }
+//   };
+
+const addBreedToDog = async ({dogId, breedId}) => {
+  // console.log(dogId, breedId);
+  try {
+
+    const {rows} = await client.query(`
+      INSERT INTO dog_breed("dogId", "breedId")
+      VALUES ($1, $2)
+      ON CONFLICT ("dogId", "breedId") DO NOTHING
+      RETURNING *;
+    `, [ dogId, breedId ])
+    console.log("This your addBreedToDog() solution: ", rows);
+
+    return rows;
+  } catch (error) {
+    throw error
+  }
+}
+addBreedToDog(5,3)
   
 
 // Works!
@@ -182,7 +201,7 @@ const createDogs = async ({name, description, price, age = []}) => {
 
 
 module.exports = {
-    // addBreedsToDog,
+    addBreedToDog,
     createDogs,
     getAllDogs,
     getDogById,
