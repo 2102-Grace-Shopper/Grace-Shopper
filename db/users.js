@@ -1,5 +1,7 @@
 const { client } = require('./client');
+const { bcrypt } = require('bcrypt')
 const db = require('../db');
+
 SALT_COUNT = 10
 
 async function createUser({
@@ -16,7 +18,7 @@ async function createUser({
         rows: [user],
       } = await client.query(
         `
-        INSERT INTO user (email, username, password, "isAdmin", "isUser")
+        INSERT INTO user (email, username, password, isAdmin)
         VALUES($1, $2, $3, $4) 
         ON CONFLICT (username) DO NOTHING
         RETURNING *;

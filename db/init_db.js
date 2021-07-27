@@ -3,7 +3,7 @@ const { createDogs } = require('./dogs')
 const { createBreed } = require('./breed')
 const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dogs_breed')
 const { createReviews } = require('./reviews')
-//const { createUser } = require('./users')
+const { createUser } = require('./users')
 const { createOrders, getOrders } = require('./orders');
 const { createProduct,  getProduct } = require('./products')
 const { addOrderProducts } = require('./order_products')
@@ -364,45 +364,45 @@ async function populateInitialReviews(){
   }
 }
 
-// async function populateInitialUsers() {
-//   try {
-//     console.log("Creating users...");
-//     // create useful starting data
-//     const seedUsers = [
-//       {
-//         id: 1,
-//         firstName: "Bob",
-//         lastName: "Smith",
-//         email: "bobswag@gswag.com",
-//         username: "bobbyboi",
-//         password: "swag",
-//         isAdmin: false
-//       },
-//       {
-//         id: 2,
-//         firstName: "Admin",
-//         lastName: "Admin",
-//         email: "Admin@admin.com",
-//         username: "Admin",
-//         password: "Admin",
-//         isAdmin: true
-//       },
-//       {
-//         id: 3,
-//         firstName: "Michael",
-//         lastName: "Scott",
-//         email: "dundermifflin@gmail.com",
-//         username: "michaelscott",
-//         password: "password",
-//         isAdmin: false,
-//       }
-//     ]
-//     const launchUsers = await Promise.all(seedUsers.map((order) => createUser(user)))
-//     console.log('Here are your initial users:', launchUsers)
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+async function populateInitialUsers() {
+  try {
+    console.log("Creating users...");
+    // create useful starting data
+    const seedUsers = [
+      {
+        id: 1,
+        firstName: "Bob",
+        lastName: "Smith",
+        email: "bobswag@gswag.com",
+        username: "bobbyboi",
+        password: "swag",
+        isAdmin: false
+      },
+      {
+        id: 2,
+        firstName: "Admin",
+        lastName: "Admin",
+        email: "Admin@admin.com",
+        username: "Admin",
+        password: "Admin",
+        isAdmin: true
+      },
+      {
+        id: 3,
+        firstName: "Michael",
+        lastName: "Scott",
+        email: "dundermifflin@gmail.com",
+        username: "michaelscott",
+        password: "password",
+        isAdmin: false,
+      }
+    ]
+    const launchUsers = await Promise.all(seedUsers.map((user) => createUser(user)))
+    console.log('Here are your initial users:', launchUsers)
+  } catch (error) {
+    throw error;
+  }
+};
 
 async function populateInitialProducts() {
   console.log('Starting to Create Products')
@@ -570,7 +570,7 @@ buildTables()
   .then(populateInitialBreedData)
   .then(populateInitialDogBreedData)
   .then(populateInitialReviews)
-  //.then(populateInitialUsers)
+  .then(populateInitialUsers)
   .then(populateInitialProducts)
   .then(populateInitialOrders)
   .then(populateInitialOrderProducts)
