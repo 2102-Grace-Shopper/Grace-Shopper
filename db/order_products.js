@@ -59,11 +59,37 @@ async function destoryOrderProduct(id) {
     }
 }
 
+async function getOrderProductsByOrderId(orderId) {
+    try {
+        const { rows: orderProducts } = await client.query(`
+       SELECT * FROM order_products 
+       WHERE "orderId" = $1
+       RETURNING * 
+       `, [orderId])
+       return orderProducts
+    } catch (error) {
+        throw error
+    }
+}
+
+async function getOrderProductByOrderAndProduct(orderId, productId) {
+    try {
+        const { rows: [id]} = await client.query(`
+        SELECT id FROM order_products
+        WHERE "orderId" = $1 AND "productId" = $2
+        `, [orderId, productId])
+        return id
+    } catch (error) {
+        throw error
+    }
+}
 
 module.exports = {
     client,
     getOrderProductsById,
     addOrderProducts,
     updateOrderProduct,
-    destoryOrderProduct
+    destoryOrderProduct,
+    getOrderProductsByOrderId,
+    getOrderProductByOrderAndProduct
 }

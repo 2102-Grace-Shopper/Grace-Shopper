@@ -6,4 +6,13 @@ apiRouter.get("/", (req, res, next) => {
   });
 });
 
+
+
+apiRouter.use('/products', require('./products'));
+
+apiRouter.use('/orders', require('./order'));
+
+apiRouter.use('/order_products', require('./order_products'))
+
+
 module.exports = apiRouter;
