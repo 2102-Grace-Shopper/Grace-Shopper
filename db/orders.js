@@ -2,14 +2,14 @@ const { client } = require('./client');
 //waiting on users to add usersId for createOrders Function
 //still need to create for orders added by usersId,
 
-async function createOrders(order) {
-    const {status,  datePlaced } = order;
+async function createOrders({status, datePlaced}) {
     try {
-        const { rows: [order] } = await client.query(`
-        INSERT INTO orders(status, "datePlaced" )
-        VALUES($1, $2)
-        RETURNING *
-        `, [status,  datePlaced])
+        const { rows: [ order ] } = await client.query(`
+            INSERT INTO orders
+            (status, "datePlaced")
+            VALUES($1, $2)
+            RETURNING *
+        `, [status, datePlaced]);
 
         return order;
     } catch (error) {
@@ -40,6 +40,7 @@ async function getOrderById(id) {
         throw error;
     }
 }
+
 async function getOrdersByProducts({id}) {
     try {
         const { rows: orders } = await client.query(`
@@ -54,18 +55,46 @@ async function getOrdersByProducts({id}) {
     }
 }
 //Under Construction carts//waiting for usersId
-async function getCartsByUserId() {
+async function getCartsByUserId(id) {
+    try {
+        const { rows:  [cart]  } = await
+        client.query(`
+        SELECT * FROM orders
+        WHERE status = 'created'
+        AND "userId" = $1
+        `, [ id ])
 
-  try {
-      
-  } catch (error) {
-      throw error;
-  }
+        console.log("cartid", cart)
+
+        const { rows: products} = await client.query(`
+        SELECT products.*, order_products.id AS "orderProductId"
+        FROM products
+        JOIN order_products ON products.id=order_products."productId"
+        WHERE order_products."orderId"=$1;
+        `, [id])
+
+        cart.products = products
+        console.log("cart products", cart)
+        return cart
+    } catch (error) {
+        throw error;
+    }
 }
 
 //Under Construction waiting for users
-async function getOrdersByUser() {
+async function getOrdersByUser(id) {
+    try {
+        const { rows: order }  = await client.query(`
+        SELECT orders.*, users.id AS "userId"
+        FROM orders
+        JOIN users ON users.id = orders."userId"
+        WHERE users.id = $1;
+        `, [id]);
 
+        return order;
+    } catch (error) {
+        throw error;
+    }
 }
 
 async function updateOrder({id, ...fields}) {
@@ -135,6 +164,8 @@ module.exports = {
     createOrders,
     getOrders, 
     getOrdersByProducts,
+    getCartsByUserId,
+    getOrdersByUser,
     getOrderById,
     updateOrder,
     completedOrder,

@@ -83,11 +83,28 @@ const createBreeds = async (breedList) => {
 
 //   createBreeds("Shiba Inu", "Great Dane")
 
+// Works!
+const deleteBreed = async (id) => {
+  try {
+    await client.query(
+      `
+      DELETE FROM breed
+      WHERE id = $1;
+      `,
+      [id]
+    );
+
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 
 module.exports = {
     createBreed,
     getAllBreeds,
-    getBreedById
-    // createBreeds
+    getBreedById,
+    // createBreeds,
+    deleteBreed
 }

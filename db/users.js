@@ -32,12 +32,33 @@ async function createUser({
       throw error;
     }
   };
+
+  async function getUser({username, password}) {
+    try {
+      const { rows: [user]} = await client.query(`
+      SELECT *
+      FROM userss
+      WHERE username=$1
+      `, [username])
+
+      const isMatch = await bcrypt.compare(password, user.password)
+      if(isMatch) {
+        console.log('Success Password matches')
+        delete user.password;
+        return user
+      } else if (!isMatch) {
+        console.log('Sorry, that password does not match')
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
   
   async function getAllUsers() {
     try {
       const { rows } = await client.query(`
-          SELECT id, username, email, password
-          FROM users;
+          SELECT *
+          FROM users
         `);
   
       return rows;
@@ -47,7 +68,7 @@ async function createUser({
     }
   };
   
-  async function getUserByEmail(email) {
+  async function getUserById(id) {
     try {
       const {
         rows: [user],
@@ -55,66 +76,67 @@ async function createUser({
         `
           SELECT *
           FROM users
-          WHERE email=$1
+          WHERE id=$1
         `,
-        [email]
+        [user]
       );
   
       return user;
     } catch (error) {
-      console.error("could not get user email", error);
+      console.error("could not get user", error);
       throw error;
     }
   };
   
-  async function updateUser(usersId, fields = {}) {
-    const setString = Object.keys(fields)
-      .map((key, index) => `"${key}"=$${index + 1}`)
-      .join(", ");
-    try {
-      if (setString.length > 0) {
-        if ("password" in fields) {
-          fields.password = await bcrypt.hash(fields.password, SALT_COUNT);
-        }
-        await client.query(
-          `
-          UPDATE users
-          SET ${setString}
-          WHERE id=${usersId}
-          RETURNING *;
-        `,
-          Object.values(fields)
-        );
-      }
-      return await getUserById(usersId);
-    } catch (error) {
-      console.error("could not update user", error);
-      throw error;
-    }
-  };
+  // async function updateUser(usersId, fields = {}) {
+  //   const setString = Object.keys(fields)
+  //     .map((key, index) => `"${key}"=$${index + 1}`)
+  //     .join(", ");
+  //   try {
+  //     if (setString.length > 0) {
+  //       if ("password" in fields) {
+  //         fields.password = await bcrypt.hash(fields.password, SALT_COUNT);
+  //       }
+  //       await client.query(
+  //         `
+  //         UPDATE users
+  //         SET ${setString}
+  //         WHERE id=${usersId}
+  //         RETURNING *;
+  //       `,
+  //         Object.values(fields)
+  //       );
+  //     }
+  //     return await getUserById(usersId);
+  //   } catch (error) {
+  //     console.error("could not update user", error);
+  //     throw error;
+  //   }
+  // };
   
   async function getUserByUsername(username) {
-    try{
-      const {
-        rows: [user],
-      } = await client.query(`
-      SELECT * FROM users
+    try {
+      const {rows} = await client.query(`
+      SELECT *
+      FROM users
       WHERE username=$1
-      `, 
-      [username]
-  );
-  return user;
-      }catch (error) {
-        console.error("could not get user by username", error);
-        throw error
+      `,[username]);
+
+      if(!rows || !rows.length){
+          return null
       }
+      const [user] = rows;
+      return user;
+  }catch (error) {
+      throw error;
+  }
   };
 
   module.exports = {
     client,
     createUser,
     getAllUsers,
-    getUserByEmail,
-    updateUser,
+    getUserById,
+    // updateUser,
     getUserByUsername
   }

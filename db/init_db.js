@@ -6,7 +6,7 @@ const { createReviews } = require('./reviews')
 const { createOrders, getOrders } = require('./orders');
 const {createProduct,  getProduct } = require('./products')
 const { addOrderProducts } = require('./order_products')
-const {createUser} =require('./users')
+const { createUser } =require('./users')
 
 async function buildTables() {
   try {
@@ -563,7 +563,9 @@ async function populateInitialReviews(){
       {
         id: 1,
         title: "Review 1",
-        content: "This is a test"
+        content: "This is a test",
+        userId:1,
+        productId: 1
       },
     ];
 

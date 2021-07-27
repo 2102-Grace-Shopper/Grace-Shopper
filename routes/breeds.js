@@ -42,5 +42,17 @@ const { getAllBreeds, getBreedById } = require("../db/index")
 
 // DELETE REQUESTS -----------------------------------------------     
 
+    breedsRouter.delete("/:id", async (req, res, next) => {
+            
+        try {
+
+        const deleteThisBreed = await deleteBreed(id);
+        console.log(deleteThisBreed);
+
+        } catch (error) {
+        throw error;
+        }
+    });
+
 
 module.exports = breedsRouter
