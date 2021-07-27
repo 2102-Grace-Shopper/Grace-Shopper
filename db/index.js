@@ -1,10 +1,10 @@
 module.exports = {
   ...require('./dogs'),
   ...require('./breed'),
+  ...require('./dog_breed'),
+  ...require('./products'),
   ...require('./users'),
   ...require('./orders'),
-  ...require('./products'),
-  ...require('./reviews'),
   ...require('./order_products'),
-  ...require('./dogs_breed')
+  ...require('./reviews')
 };
