@@ -35,7 +35,8 @@ async function buildTables() {
        name VARCHAR UNIQUE,
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
-       age INTEGER  
+       age INTEGER,
+       imageURL VARCHAR(255) DEFAULT 'https://icon-library.com/images/no-image-available-icon/no-image-available-icon-8.jpg'
      );
 
      CREATE TABLE breed(
@@ -108,141 +109,161 @@ async function populateInitialDogData() {
         id: 1,
         name: "Fido",
         description: "a classic great dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 2,
         name: "Bella",
         description: "smart and witty",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 3,
         name: "Charlie",
         description: "loves to play fetch",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 4,
         name: "Lucy",
         description: "fast and playful",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 5,
         name: "Duke",
         description: "a beautiful hairy dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 6,
         name: "Molly",
         description: "loves to hangout in the sunshine",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 7,
         name: "JoJo",
         description: "a great cuddler",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 8,
         name: "Oliver",
         description: "a very sophisticated animal",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 9,
         name: "Penny",
         description: "a bit ferocious but a nice dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 10,
         name: "Zeus",
         description: "the king of all dogs",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 11,
         name: "Scout",
         description: "the best adventure dog in the world",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 12,
         name: "Crinkles",
         description: "the most lovable face ever",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 13,
         name: "Moose",
         description: "big, cuddly and hairy",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 14,
         name: "Dexter",
         description: "too smart for his own good",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 15,
         name: "Bandit",
         description: "he'll still your food, but you'll still love him",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 16,
         name: "Oakley",
         description: "a pretty amazing dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 17,
         name: "Ace",
         description: "always comes through when you need him",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 18,
         name: "Winnie",
         description: "old and wise",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 19,
         name: "Dakota",
         description: "the perfect mountain dog for your backpacking adventures",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       },
       { 
         id: 20,
         name: "Sunny",
         description: "always smiling, making you laugh",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://dog.ceo/api/breeds/image/random"
       }
     ];
 
