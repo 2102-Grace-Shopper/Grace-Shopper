@@ -1,5 +1,5 @@
-import React from "react";
-import { getAllDogs, getAllDogBreeds } from "../api/index";
+import React, { useEffect } from "react";
+import { getDogs } from "../api/index";
 import {
   Card,
   CardImg,
