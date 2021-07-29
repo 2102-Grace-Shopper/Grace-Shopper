@@ -23,9 +23,6 @@ async function createUser({
           `,
         [firstName,lastName, email, username, password, isAdmin,]
       );
-  
-    //   delete user.password;
-    //   console.log(user, "my user");
       return user;
     } catch (error) {
       throw error;
