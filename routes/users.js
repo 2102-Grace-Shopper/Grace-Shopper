@@ -1,10 +1,8 @@
 const usersRouter = require('express').Router();
 const {createUser,
     getAllUsers,
-    getUserByEmail,
-    updateUser,
     getUserByUsername,
-    registerUser,
+    getUserById,
     loginUser} = require("../db/users")
 
 const {getToken} = require('./userToken')
@@ -27,9 +25,16 @@ usersRouter.get("/:username", async (req, res, next) => {
     res.send(user);
 });
 
+usersRouter.get("/:id", async (req, res, next) => {
+    const {id} = req.params;
+    const user = await getUserById(id);
+
+    res.send(user);
+});
+
 usersRouter.post('/register', async (req, res, next) => {
-    const { username, password } = req.body
-    const user = await registerUser({username, password})
+    const { username, password, firstName, lastName, email } = req.body
+    const user = await createUser({username, password, firstName, lastName, email})
 
     if(user) {
         const token = getToken(user.username, user.id)
