@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
-
-import {
-  getSomething
-} from '../api';
+import React, { useState } from 'react';
+import NavReact from './Navbar';
+import GetAllDogs from './Dogs';
+import './Styles.css'
 
 const App = () => {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
-  });
+  const [dogs, setDogs] = useState([])
 
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-      <h2>{ message }</h2>
+    <div>
+      <NavReact>
+        
+      </NavReact>
+    </div>,
+    <div>
+      <GetAllDogs />
     </div>
   );
 }
+
 
 export default App;
