@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { BrowserRouter as Router,
+  Route,
+  Switch } from 'react-router-dom'
 import NavReact from './Navbar';
+import GetAllDogs from './Dogs';
+import './Styles.css'
 
 const App = () => {
+  const [dogs, setDogs] = useState([])
 
   return (
-    <div>
-      <NavReact>
-        
-      </NavReact>
+    <Router>
+    <Switch>
+    <div className="App">
+    <NavReact />
+    <Route path='/Dogs'>
+      <GetAllDogs
+      dogs = {dogs}
+      setDogs = {setDogs}
+      />
+    </Route>
     </div>
+    </Switch>
+  </Router>
   );
 }
 
