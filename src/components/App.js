@@ -4,10 +4,12 @@ import { BrowserRouter as Router,
   Switch } from 'react-router-dom'
 import NavReact from './Navbar';
 import GetAllDogs from './Dogs';
+import GetAllProducts from './Products';
 import './Styles.css'
 
 const App = () => {
-  const [dogs, setDogs] = useState([])
+  const [dogs, setDogs] = useState([]);
+  const [products, setProducts] = useState([]);
 
   return (
     <Router>
@@ -20,6 +22,12 @@ const App = () => {
         setDogs = {setDogs}
         />
       </Route>
+      <Route path='/products'>
+        <GetAllProducts
+        products = {products}
+        setProducts = {setProducts}
+        />
+        </Route>
       </div>
       </Switch>
     </Router>

@@ -31,23 +31,23 @@ export async function getUsers() {
 
 }
 
-export async function getDogByID(dogID) {
-  try {
-    const {data} = await axios.get('api/dogs/${dogID}')
-    return data
-  } catch (error) {
-    throw error
-  }
-}
+// export async function getDogByID(dogID) {
+//   try {
+//     const { data } = await axios.get('api/dogs/${dogID}')
+//     return data
+//   } catch (error) {
+//     throw error
+//   }
+// }
 
-export async function getProductByID(productID) {
-  try {
-    const {data} = await axios.get('api/products/${productID}')
-    return data
-  } catch (error) {
-    throw error
-  }
-}
+// export async function getProductByID(productID) {
+//   try {
+//     const {data} = await axios.get('api/products/${productID}')
+//     return data
+//   } catch (error) {
+//     throw error
+//   }
+// }
 
 export async function registerUser(username, password) {
   try{

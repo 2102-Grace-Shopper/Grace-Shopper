@@ -111,7 +111,7 @@ async function populateInitialDogData() {
         description: "a classic great dog",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://www.shutterstock.com/image-photo/heart-dog-tag-leather-collar-isolated-1370316434"
       },
       { 
         id: 2,
