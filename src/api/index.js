@@ -9,6 +9,15 @@ export async function getDogs() {
   }
 }
 
+export async function getDogsHome() {
+  try{
+  const { data: {dogs} } = await axios.get('/api/home')
+  return dogs
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getProducts() {
 
   try{

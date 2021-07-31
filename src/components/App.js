@@ -5,6 +5,7 @@ import { BrowserRouter as Router,
 import NavReact from './Navbar';
 import GetAllDogs from './Dogs';
 import GetAllProducts from './Products';
+import Home from './Home';
 import './Styles.css'
 
 const App = () => {
@@ -16,6 +17,12 @@ const App = () => {
       <Switch>
       <div className="App">
       <NavReact />
+      <Route path='/home'>
+        <Home
+          dogs = {dogs}
+          setDogs = {setDogs}
+        />
+      </Route>
       <Route path='/dogs'>
         <GetAllDogs
         dogs = {dogs}
