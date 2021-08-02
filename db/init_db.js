@@ -61,7 +61,7 @@ async function buildTables() {
        name VARCHAR(255) NOT NULL,
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
-       imageURL VARCHAR(255) DEFAULT 'https://icon-library.com/images/no-image-available-icon/no-image-available-icon-8.jpg',
+       imageURL VARCHAR(255) NOT NULL,
        inStock BOOLEAN DEFAULT false,
        category VARCHAR(255) NOT NULL
      );

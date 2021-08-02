@@ -2,21 +2,19 @@ const { client } = require("./client");
 
 // Works!
 const createReviews = async ({title, content, userId, productId}) => {
-    try {
-    const { rows: [reviews] } = await client.query(`
-      INSERT INTO reviews (title, content, "userId", "productId")
-      VALUES ($1, $2, $3, $4)
-      RETURNING *;
-    `, [title, content, userId, productId]);
+  try {
+  const { rows: [reviews] } = await client.query(`
+    INSERT INTO reviews (title, content, "userId", "productId")
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
+  `, [title, content, userId, productId]);
 
-    return reviews;
+  return reviews;
 
-    } catch (error) {
-      throw error;
-    }
-  };
-
-
+  } catch (error) {
+    throw error;
+  }
+};
 
   // Works!
   async function getReviews() {
@@ -38,9 +36,9 @@ const createReviews = async ({title, content, userId, productId}) => {
 // Works!
 async function getReviewsById(id) {
     try {
-        const { rows: review } = await client.query(`
+        const { rows: [review] } = await client.query(`
         SELECT * FROM reviews
-        WHERE "productId" = $1;
+        WHERE id = $1;
         `, [id])
 
         return review;
@@ -51,20 +49,19 @@ async function getReviewsById(id) {
 
 
 async function getReviewsByUsers({userId}) {
-    try {
-        const { rows: [user] } = await client.query(`
-        SELECT reviews.*, users.username AS creatorname
-        FROM users
-        JOIN reviews ON reviews."userId"=users.Id
-        WHERE reviews."userId"=${userId}
-         `);
-         return user;
-    } catch (error) {
-        throw error;
-    }
+  try {
+      const { rows: [user] } = await client.query(`
+      SELECT reviews.*, users.username AS creatorname
+      FROM users
+      JOIN reviews ON reviews."userId"=users.Id
+      WHERE reviews."userId"=${userId}
+       `);
+       return user;
+  } catch (error) {
+      throw error;
+  }
 }
 
-getReviewsByUsers(1,1)
 
 //Works!
 async function updateReview({id, ...fields}) {
@@ -113,11 +110,10 @@ const deleteReview = async (id) => {
 
 
 module.exports = {
-  client,
     createReviews,
     getReviews,
     getReviewsById,
-     getReviewsByUsers,
+    getReviewsByUsers,
     updateReview,
     deleteReview
 }

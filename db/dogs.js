@@ -1,6 +1,7 @@
 const { client } = require("./client");
-const { createDogBreed} = require("./dog_breed");
+const { createDogBreed } = require("./dog_breed");
 const { createBreed } = require("./breed");
+
 
 const addBreedToDog = async ({dogId, breedId}) => {
   // console.log(dogId, breedId);
@@ -23,13 +24,13 @@ const addBreedToDog = async ({dogId, breedId}) => {
   
 
 // Works!
-const createDogs = async ({name, description, price, age = []}) => {
+const createDogs = async ({name, description, price, age, imageURL = []}) => {
     try {
     const { rows: [dogs] } = await client.query(`
-      INSERT INTO dogs (name, description, price, age)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO dogs (name, description, price, age, imageURL)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
-    `, [name, description, price, age]);
+    `, [name, description, price, age, imageURL]);
 
     return dogs;
 
@@ -181,13 +182,14 @@ const createDogs = async ({name, description, price, age = []}) => {
         }
       };
 
+
+
 module.exports = {
-    client,
-   addBreedToDog,
+    addBreedToDog,
     createDogs,
     getAllDogs,
     getDogById,
-    getDogsByBreadName,
     updateDog,
+    getDogsByBreadName,
     deleteDog
 }

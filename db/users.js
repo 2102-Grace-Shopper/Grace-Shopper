@@ -1,6 +1,5 @@
 const { client } = require('./client');
 const bcrypt = require('bcrypt')
-// const db = require('../db');
 SALT_COUNT = 10
 
 async function createUser({
@@ -24,15 +23,12 @@ async function createUser({
           `,
         [firstName,lastName, email, username, password, isAdmin,]
       );
-  
-    //   delete user.password;
-    //   console.log(user, "my user");
       return user;
     } catch (error) {
       throw error;
     }
   };
-  
+
 
   async function getUser({username, password}) {
     try {
@@ -61,14 +57,14 @@ async function createUser({
           SELECT *
           FROM users
         `);
-  
+
       return rows;
     } catch (error) {
       console.error("could not get users", error);
       throw error;
     }
   };
-  
+
   async function getUserById(id) {
     try {
       const {
@@ -81,40 +77,15 @@ async function createUser({
         `,
         [user]
       );
-  
+
       return user;
     } catch (error) {
       console.error("could not get user", error);
       throw error;
     }
   };
-  
-  // async function updateUser(usersId, fields = {}) {
-  //   const setString = Object.keys(fields)
-  //     .map((key, index) => `"${key}"=$${index + 1}`)
-  //     .join(", ");
-  //   try {
-  //     if (setString.length > 0) {
-  //       if ("password" in fields) {
-  //         fields.password = await bcrypt.hash(fields.password, SALT_COUNT);
-  //       }
-  //       await client.query(
-  //         `
-  //         UPDATE users
-  //         SET ${setString}
-  //         WHERE id=${usersId}
-  //         RETURNING *;
-  //       `,
-  //         Object.values(fields)
-  //       );
-  //     }
-  //     return await getUserById(usersId);
-  //   } catch (error) {
-  //     console.error("could not update user", error);
-  //     throw error;
-  //   }
-  // };
-  
+
+
   async function getUserByUsername(username) {
     try {
       const {rows} = await client.query(`
@@ -131,13 +102,40 @@ async function createUser({
   }catch (error) {
       throw error;
   }
+};
+
+
+  async function loginUser(username, password) {
+    try {
+        const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+
+      const { rows: [user] } = await client.query(`
+        SELECT * FROM users 
+        WHERE username=$1;
+      `, [username])
+  
+      if (!user) {
+        return null;
+      }
+
+      const correctPW = await bcrypt.compare(hashedPassword, user.password);
+      if (!correctPW) {
+        return null;
+      }
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
   };
+
 
   module.exports = {
     client,
     createUser,
+    getUser,
     getAllUsers,
     getUserById,
-    // updateUser,
-    getUserByUsername
-  }
+    getUserByUsername,
+    loginUser
+  };

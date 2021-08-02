@@ -1,33 +1,38 @@
-import React, { useState, useEffect } from 'react';
-
-import {
-  BrowserRouter as Router,
+import React, { useState } from 'react';
+import { BrowserRouter as Router,
   Route,
-  Switch
-} from 'react-router-dom'
-
+  Switch } from 'react-router-dom'
 import NavReact from './Navbar';
-
+import GetAllDogs from './Dogs';
 import GetAllProducts from './Products';
+import './Styles.css'
 
 const App = () => {
+  const [dogs, setDogs] = useState([]);
   const [products, setProducts] = useState([]);
 
   return (
-  <Router>
-    <Switch>
+    <Router>
+      <Switch>
       <div className="App">
-        <NavReact />
-        <Route path='/products'>
+      <NavReact />
+      <Route path='/dogs'>
+        <GetAllDogs
+        dogs = {dogs}
+        setDogs = {setDogs}
+        />
+      </Route>
+      <Route path='/products'>
         <GetAllProducts
         products = {products}
         setProducts = {setProducts}
         />
         </Route>
       </div>
-    </Switch>
-  </Router>
-  )
+      </Switch>
+    </Router>
+  );
 }
+
 
 export default App;

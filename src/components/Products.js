@@ -67,10 +67,10 @@ const GetAllProducts = (props) => {
                     <CardTitle tag="h5">{products.name}</CardTitle>
                     <br/>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      Price: {products.price}
+                      Price: ${products.price}
                       <br/>
                       <br/>
-                      inStock: ${products.inStock}
+                      inStock: {products.inStock}
                     </CardSubtitle>
                     <CardText>
                       Description:

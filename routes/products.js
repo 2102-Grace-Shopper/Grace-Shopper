@@ -11,10 +11,11 @@ createProduct,
 destroyProduct
 } = require('../db/index');
 
+//fix t
 productRouter.get('/', async (req, res, next) => {
     try {
-        const products = getProduct();
-        res.send(products)
+        const products = await getProduct();
+        res.send({products:products})
         return products
     } catch (error) {
         next(error)
