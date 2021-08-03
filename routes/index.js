@@ -17,7 +17,7 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.use('/dogs', dogsRouter);
 apiRouter.use('/breeds', breedsRouter);
 apiRouter.use('/dog_breed', dog_breedRouter);
-// apiRouter.use('/users', usersRouter);
+apiRouter.use('/users', usersRouter);
 apiRouter.use('/orders', orderRouter);
 apiRouter.use('/products', productRouter);
 apiRouter.use('/order_products', orderProductRouter);
