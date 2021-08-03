@@ -102,5 +102,9 @@ Which will run `npm run db:build` on the heroku server.
 
 Once that command runs, you can type `heroku open` to get a browser to open up locally with your full-stack application running remotely.
 
+<<<<<<< HEAD
 
 Rene's Branch
+=======
+Alex was Here!
+>>>>>>> da55a45b7b89027e8980964b48ae19e6beba9e6f

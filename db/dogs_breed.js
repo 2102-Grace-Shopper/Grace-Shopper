@@ -1,5 +1,6 @@
 const { client } = require("./client");
 
+//Works!
 const createDogBreed = async (dogId, breedId) => {
     console.log(dogId, breedId);
     try {
@@ -12,8 +13,6 @@ const createDogBreed = async (dogId, breedId) => {
           `,
         [dogId, breedId]
       );
-
-      // console.log("This is the createDogBreed() Test: ", rows)
   
       return rows;
     } catch (error) {
@@ -21,8 +20,7 @@ const createDogBreed = async (dogId, breedId) => {
     }
   };
 
-//   createDogBreed(1, 2)
-
+  //Works!
   const getDogBreedById = async (id) => {
     try {
       const {
@@ -35,8 +33,6 @@ const createDogBreed = async (dogId, breedId) => {
           `,
         [id]
       );
-
-      // console.log("This is the getDogBreedById() Test: ", dog_breed)
   
       return dog_breed;
     } catch (error) {
@@ -44,8 +40,7 @@ const createDogBreed = async (dogId, breedId) => {
     }
   };
 
-//   getDogBreedById(1)
-
+  //Works!
   const getAllDogBreeds = async (dogId) => {
     try {
       const { rows } = await client.query(
@@ -58,9 +53,8 @@ const createDogBreed = async (dogId, breedId) => {
         `,
         [dogId]
       );
-  
-      console.log("dogId", dogId);
-      console.log("rows", rows.length);
+
+      console.log(rows)
   
       return rows;
     } catch (err) {
@@ -69,8 +63,11 @@ const createDogBreed = async (dogId, breedId) => {
     }
   };
 
+  getAllDogBreeds(1)
+
   module.exports = {
     createDogBreed,
     getDogBreedById,
     getAllDogBreeds
   };
+
