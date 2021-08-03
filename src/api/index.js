@@ -9,6 +9,15 @@ export async function getDogs() {
   }
 }
 
+export async function getDogsHome() {
+  try{
+  const { data: {dogs} } = await axios.get('/api/home')
+  return dogs
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getProducts() {
 
   try{
@@ -31,62 +40,37 @@ export async function getUsers() {
 
 }
 
-// export async function getDogByID(dogID) {
-//   try {
-//     const {data} = await axios.get('api/dogs/${dogID}')
-//     return data
-//   } catch (error) {
-//     throw error
-//   }
-// }
+export async function registerUserAccount(username, password) {
+  try {
+    const {data} = await axios.post('/api/users/register', {username, password})
 
-
-// export async function getProductByID(productID) {
-//   try {
-//     const {data} = await axios.get('api/products/${productID}')
-//     return data
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
-export async function registerUser(username, password) {
-  try{
-    const response = await fetch(`api/users/register`,{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ 
-              username: username,
-              password: password,
-        }),
-    });
-    const data  = await response.json();
-    localStorage.setItem("token", JSON.stringify(data.token));
+    
+    localStorage.setItem("token", JSON.stringify(data.token))
+    localStorage.setItem("userId", JSON.stringify(data.user.id))
     return data;
-}catch(error){
-    throw error
-}
-}
-
-export async function loginUser(username, password) {
-  try{
-    const response = await fetch(`api/users/login`,{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password,
-        })
-    });
-    const data = await response.json();
-    localStorage.setItem('token', JSON.stringify(data.token));
-    return data
-}catch(error){
-    throw error
+  } catch (error) {
+    console.log(error)
+  }
 }
 
+export async function loginUserAccount(username, password) {
+  try {
+    const {data} = await axios.post('/api/users/login', {username, password})
+
+    
+    localStorage.setItem("token", JSON.stringify(data.token))
+    localStorage.setItem("userId", JSON.stringify(data.user.id))
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function logoutUserAccount() {
+  try {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+  } catch (error) {
+    console.log(error)
+  }
 }

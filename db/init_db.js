@@ -61,7 +61,7 @@ async function buildTables() {
        name VARCHAR(255) NOT NULL,
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
-       imageURL VARCHAR(255) NOT NULL,
+       imageURL VARCHAR(255) DEFAULT 'imageUrl goes here',
        inStock BOOLEAN DEFAULT false,
        category VARCHAR(255) NOT NULL
      );
