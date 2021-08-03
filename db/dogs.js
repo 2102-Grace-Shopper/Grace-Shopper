@@ -114,7 +114,7 @@ const createDogs = async ({name, description, price, age, imageURL = []}) => {
   };
 
 
-  //Needs Help
+  //Needs Help -- Need to test
   const updateDog = async (dogId, fields = {}) => {
         const { breeds } = fields;
         delete fields.breeds;
