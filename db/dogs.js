@@ -120,9 +120,16 @@ const createDogs = async ({name, description, price, age = []}) => {
   };
 
 
+<<<<<<< HEAD
     //   const updateDog = async (dogId, fields = {}) => {
     //     const { breeds } = fields;
     //     delete fields.breeds;
+=======
+  //Needs Help -- Need to test
+  const updateDog = async (dogId, fields = {}) => {
+        const { breeds } = fields;
+        delete fields.breeds;
+>>>>>>> 3f644327c00f3703533ff1da8f42a5f5b8b038e1
       
     //     const setString = Object.keys(fields)
     //       .map((key, index) => `"${key}"=$${index + 1}`)

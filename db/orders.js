@@ -1,6 +1,4 @@
 const { client } = require('./client');
-//waiting on users to add usersId for createOrders Function
-//still need to create for orders added by usersId,
 
 async function createOrders(order) {
     const {status,  datePlaced } = order;

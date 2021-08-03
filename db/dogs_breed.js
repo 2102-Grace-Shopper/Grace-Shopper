@@ -54,7 +54,7 @@ const createDogBreed = async (dogId, breedId) => {
         [dogId]
       );
 
-      console.log(rows)
+      // console.log(rows)
   
       return rows;
     } catch (err) {
@@ -63,7 +63,7 @@ const createDogBreed = async (dogId, breedId) => {
     }
   };
 
-  getAllDogBreeds(1)
+  // getAllDogBreeds(1)
 
   module.exports = {
     createDogBreed,

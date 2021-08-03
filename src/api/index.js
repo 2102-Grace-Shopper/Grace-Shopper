@@ -31,7 +31,7 @@ export async function getUsers() {
 
 }
 
-export async function registerUserAccount(username, password) {
+export async function registerUser(username, password) {
   try {
     const {data} = await axios.post('/api/users/register', {username, password})
 
@@ -44,7 +44,7 @@ export async function registerUserAccount(username, password) {
   }
 }
 
-export async function loginUserAccount(username, password) {
+export async function loginUser(username, password) {
   try {
     const {data} = await axios.post('/api/users/login', {username, password})
 
@@ -57,11 +57,47 @@ export async function loginUserAccount(username, password) {
   }
 }
 
-export async function logoutUserAccount() {
+export async function logoutUser() {
   try {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
   } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function addDogToWishlist(userId, dogId) {
+  try {
+    const {data} = await axios.post('/api/wishlist/add', {userId, dogId})
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function removeDogFromWishlist(userId, dogId) {
+  try{
+    const{data} = await axios.post('/api/wishlist/remove', {userId, dogId})
+    return data
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export async function addProductToOrder(userId, productId) {
+  try {
+    const{data} = await axios.post('/api/cart/add', {userId, productId})
+    return data
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export async function removeProductFromOrder(userId, productId) {
+  try {
+    const{data} = await axios.post('/api/cart/remove', {userId, productId})
+    return data
+  } catch(error) {
     console.log(error)
   }
 }

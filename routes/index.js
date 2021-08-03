@@ -17,7 +17,11 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.use('/dogs', dogsRouter);
 apiRouter.use('/breeds', breedsRouter);
 apiRouter.use('/dog_breed', dog_breedRouter);
+<<<<<<< HEAD
 // apiRouter.use('/users', usersRouter);
+=======
+apiRouter.use('/users', usersRouter);
+>>>>>>> 3f644327c00f3703533ff1da8f42a5f5b8b038e1
 apiRouter.use('/orders', orderRouter);
 apiRouter.use('/products', productRouter);
 apiRouter.use('/order_products', orderProductRouter);

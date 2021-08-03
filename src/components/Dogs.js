@@ -60,15 +60,20 @@ const GetAllDogs = (props) => {
                       alignSelf: "center",
                       maxHeight: "250px",
                       maxWidth: "225px",
-  
                   }}
                 />
                 <CardBody>
                   <CardTitle tag="h5">{dogs.name}</CardTitle>
+                  <br/>
                   <CardSubtitle tag="h6" className="mb-2 text-muted">
-                    Type: {dogs.age} / Price: ${dogs.price}
+                    Age: {dogs.age} Years Old
+                    <br/>
+                    <br/>
+                    Price: ${dogs.price}
                   </CardSubtitle>
                   <CardText>
+                    Description:
+                    <br/>  
                     {dogs.description}
                   </CardText>
                   <Button>Request Dog Visit!</Button>
