@@ -3,13 +3,13 @@ const {client} = require('./client')
 const {getReviewsById} = require('./reviews')
 
 async function createProduct(product) {
-    const {name, description, price, inStock, imageUrl, category } = product;
+    const {name, description, price, inStock, imageURL, category } = product;
      try {
          const { rows: [product] } = await client.query(`
-         INSERT INTO products(name, description, price, inStock, imageUrl, category)
+         INSERT INTO products(name, description, price, "inStock", "imageURL", category)
          VALUES($1, $2, $3, $4, $5, $6)
          RETURNING *
-         `, [name, description, price, inStock, imageUrl, category])
+         `, [name, description, price, inStock, imageURL, category])
 
          return product;
      } catch (error) {
