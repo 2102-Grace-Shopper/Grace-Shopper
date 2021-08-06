@@ -40,6 +40,26 @@ export async function getUsers() {
 
 }
 
+//adding products to carts
+export async function addOrders(orderId) {
+  try {
+    const { data } = await axios.get('/api/order/add', {orderId})
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//checking out our orders
+export async function checkOut() {
+  try {
+    const { data } = await axios.patch('/api/order/checkout')
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function registerUserAccount(username, password) {
   try {
     const {data} = await axios.post('/api/users/register', {username, password})

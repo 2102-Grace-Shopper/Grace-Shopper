@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-import {getProducts} from "../api/index"
+import {getProducts, addOrders} from "../api/index"
 
 import {
     Card,
@@ -77,7 +77,7 @@ const GetAllProducts = (props) => {
                       <br/>  
                       {products.description}
                     </CardText>
-                    <Button>Add To Cart</Button>
+                    <Button onClick={async () => await addOrders(products.id)}>Add To Cart</Button>
                   </CardBody>
                 </Card>
               </div>
