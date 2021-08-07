@@ -36,7 +36,7 @@ async function buildTables() {
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
        age INTEGER,
-       imageURL VARCHAR(255) DEFAULT 'https://icon-library.com/images/no-image-available-icon/no-image-available-icon-8.jpg'
+       "imageURL" VARCHAR(255) DEFAULT 'imageUrl goes here'
      );
 
      CREATE TABLE breed(
@@ -56,8 +56,8 @@ async function buildTables() {
       name VARCHAR(255) NOT NULL,
       description VARCHAR(255) NOT NULL,
       price VARCHAR(255) NOT NULL,
-      imageURL VARCHAR(255) DEFAULT 'https://icon-library.com/images/no-image-available-icon/no-image-available-icon-8.jpg',
-      inStock BOOLEAN DEFAULT false,
+      "imageURL" VARCHAR(255) DEFAULT 'imageUrl goes here',
+      "inStock" BOOLEAN DEFAULT false,
       category VARCHAR(255) NOT NULL
      );
 
@@ -111,7 +111,7 @@ async function populateInitialDogData() {
         description: "a classic great dog",
         price: 125.00,
         age: 2,
-        imageURL: "https://www.shutterstock.com/image-photo/heart-dog-tag-leather-collar-isolated-1370316434"
+        imageURL: "https://i.postimg.cc/kG8bKwrR/815167e9-f69a-4557-84de-e7eba5c2ba53.jpg"
       },
       { 
         id: 2,
@@ -119,7 +119,7 @@ async function populateInitialDogData() {
         description: "smart and witty",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/GhsYX65M/8536-28743-5665.jpg"
       },
       { 
         id: 3,
@@ -127,7 +127,7 @@ async function populateInitialDogData() {
         description: "loves to play fetch",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/BZjMGYzF/1326984c-39b0-492c-a773-f120d747a7e2.jpg"
       },
       { 
         id: 4,
@@ -135,7 +135,7 @@ async function populateInitialDogData() {
         description: "fast and playful",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/XNtxNKMz/1ef19cb9-b8a6-47b8-bde2-ac9383ac5af0.jpg"
       },
       { 
         id: 5,
@@ -420,57 +420,57 @@ async function populateInitialProductsData() {
     const seedProducts = [
       {
       name: 'Leather Dog Collar', 
-      description: 'A Boujee Dog Collar for a Boujee Dog', 
+      description: 'A great accessory that will make all the dogs and dogs owners jealous. ', 
       price: 28.00, 
-      imageURL: 'https://www.alamy.com/black-leather-dog-collar-image67953022.html',
+      imageURL: 'https://i.postimg.cc/dQfhmCvn/61l-W8-R-w-O9-L-AC-SY450.jpg',
       inStock: true,
       category: 'collar'
       },
       {
         name: 'Heart Tag Dog Collar',
-        description: 'A cute dog tag collar for a your little friends',
+        description: 'An adorable collar that will make your furry friend 10x cuter. ',
         price: 30.00,
-        imageURL: 'https://www.shutterstock.com/image-photo/heart-dog-tag-leather-collar-isolated-1370316434',
+        imageURL: 'https://i.postimg.cc/BbbMWKwM/2953948-back-1.jpg',
         inStock: true,
         category: 'collar'
       },
       {
         name: 'Stainless Steel Pet Bowl',
-        description: 'Perfect bowl for our little messy friends',
+        description: 'Perfect bowl for our little messy furry friends',
         price: 15.00,
-        imageURL: 'https://www.shutterstock.com/image-illustration/dog-cat-dry-food-stainless-steel-1530748583',
+        imageURL: 'https://i.postimg.cc/QMPpBy6k/61m-BXZiwiw-L.jpg',
         inStock: true,
         category: 'bowl'
       },
       {
-        name: 'Plastic Pet Bowl',
-        description: 'Great bowl to put in dog treats for our little friends',
-        imageURL: 'https://www.shutterstock.com/image-vector/empty-red-pet-dog-food-bowl-199044806',
+        name: 'Double Plastic Pet Bowl ',
+        description: 'Save more by buying this pet bowl that carries both treats and meals for our furry friends.',
+        imageURL: 'https://i.postimg.cc/DygLQZjz/Custom-Printed-Double-Plastic-Pet-Bowl-500x500.jpg',
         price: 12.00,
         inStock: true,
         category: 'bowl'
       },
       {
-        name: 'Yellow Soft Bed',
-        description: 'A perfect bed for our tiny/medium-sized furry friends',
-        imageURL: 'https://www.shutterstock.com/image-photo/yellow-soft-small-dog-cats-bed-1676365222',
+        name: 'Comfy Yellow Bed',
+        description: 'Keep your furry friend comfy while sleeping or relaxing on this comfy yellow bed.',
+        imageURL: 'https://i.postimg.cc/yx5q2Bn3/71-GI4-D-l12-L-AC-SX466.jpg',
         price: 34.00,
         inStock: true,
         category: 'bed'
       },
       {
-        name: 'Black-Green Soft Bed',
-        description: 'A perfect bed for our medium/big-sized furry friends',
-        imageURL: 'https://www.shutterstock.com/image-photo/young-beautiul-golden-retriever-dog-373247692',
+        name: 'Fluffy Donut-Shaped Bed',
+        description: 'Our furry friends will forever dream of donuts with this super comfy bed.',
+        imageURL: 'https://i.postimg.cc/jjvFGtSq/71-Rka-SEY0z-L-AC-SL1500.jpg',
         price: 38.00,
         inStock: true,
         category: 'bed'
       },
       {
         name: 'Rubber Fetch Balls',
-        description: 'A set of three rubber fetch balls to play catch with your furry friends',
+        description: 'A set of three rubber fetch balls to play catch with your furry friend',
         price: 5.00,
-        imageURL: 'https://www.shutterstock.com/image-photo/group-three-small-rubber-fetch-balls-304737770',
+        imageURL: 'https://i.postimg.cc/J4NVpwZ0/152846-Main-AC-SL400-V1549655069.jpg',
         inStock: true,
         category: 'toys'
       },
@@ -478,23 +478,23 @@ async function populateInitialProductsData() {
         name: 'Colorful Cotton Rope',
         description: 'Great toy for dogs to wrestle with their owner or other dogs',
         price: 12.00,
-        imageURL: 'https://www.shutterstock.com/image-photo/dog-toy-colorful-cotton-rope-games-1071524459',
+        imageURL: 'https://i.postimg.cc/c4mkKdfR/dog-toys-mammoth-rope-2knot.jpg',
         inStock: true,
         category: 'toys'
       },
       {
-        name: 'Dog Chew Bone and Sticks',
-        description: 'A small set of various treats for our furry friends',
+        name: 'Dog Chew Bone',
+        description: 'A set of three dog chew bones that will have your furry friend craving more',
         price: 18.00,
-        imageURL: 'https://www.shutterstock.com/image-photo/dog-chew-bone-sticks-isolated-on-653239414',
+        imageURL: 'https://i.postimg.cc/26GLQ9GK/31-QPEG4v-Ji-L-AC.jpg',
         inStock: true,
         category: 'food'
       },
       {
-        name: 'Assortment of Treats',
-        description: 'An assortments of treats that will make your furry friend happy and wanting more',
+        name: 'Dog Treats',
+        description: 'Delicious dog treats that will have your furry friend mouthwatering',
         price: 25.00,
-        imageURL: 'https://www.shutterstock.com/image-photo/dog-treats-isolated-on-white-background-69077959',
+        imageURL: 'https://i.postimg.cc/JhWs9CdF/Peanut-Butter-Dog-Treats-square-1400.jpg',
         inStock: true,
         category: 'food'
       }
