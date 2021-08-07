@@ -60,7 +60,7 @@ const GetAllDogs = (props) => {
                       justifyContent: "center",
                       alignSelf: "center",
                       maxHeight: "150px",
-                      maxWidth: "150px",
+                      maxWidth: "275px",
                   }}
                 />
                 <CardBody>

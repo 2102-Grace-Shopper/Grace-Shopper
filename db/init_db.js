@@ -143,7 +143,7 @@ async function populateInitialDogData() {
         description: "a beautiful hairy dog",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/brSGF23G/2505f628-614d-4521-a26b-70897a51d4fd.jpg"
       },
       { 
         id: 6,
@@ -151,7 +151,7 @@ async function populateInitialDogData() {
         description: "loves to hangout in the sunshine",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/PrZyCLTr/440f11bf-b9d4-44de-a5c3-3f0893b04fa2.jpg"
       },
       { 
         id: 7,
@@ -159,7 +159,7 @@ async function populateInitialDogData() {
         description: "a great cuddler",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/Vk8RnYk9/5dfed833-2fc2-4962-abda-cbb65d1370d6.jpg"
       },
       { 
         id: 8,
@@ -167,7 +167,7 @@ async function populateInitialDogData() {
         description: "a very sophisticated animal",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/fk434Tr8/8617-11546-19302.jpg"
       },
       { 
         id: 9,
@@ -175,7 +175,7 @@ async function populateInitialDogData() {
         description: "a bit ferocious but a nice dog",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/T2mBw2qy/16511ded-7464-4481-b26e-b3411957a42c.png"
       },
       { 
         id: 10,
@@ -183,7 +183,7 @@ async function populateInitialDogData() {
         description: "the king of all dogs",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/sxpL0KDP/vh7i79y2qhhy.jpg"
       },
       { 
         id: 11,
@@ -191,7 +191,7 @@ async function populateInitialDogData() {
         description: "the best adventure dog in the world",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/4dHqpsDS/14769-27888-18622.jpg"
       },
       { 
         id: 12,
@@ -199,7 +199,7 @@ async function populateInitialDogData() {
         description: "the most lovable face ever",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/D0VDgRFy/24141-29115-27188.jpg"
       },
       { 
         id: 13,
