@@ -55,12 +55,13 @@ const GetAllProducts = (props) => {
                     src={products.imageURL}
                     alt="Card image cap"
                     style={{
+                       marginTop: "10px",
                         marginBottom: "10px",
                         display: "flex",
                         justifyContent: "center",
                         alignSelf: "center",
-                        maxHeight: "250px",
-                        maxWidth: "225px",
+                        maxHeight: "150px",
+                        maxWidth: "150px",
                     }}
                   />
                   <CardBody>
