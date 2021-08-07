@@ -49,8 +49,7 @@ export async function loginUser(username, password) {
     const {data} = await axios.post('/api/users/login', {username, password})
 
     
-    localStorage.setItem("token", JSON.stringify(data.token))
-    localStorage.setItem("userId", JSON.stringify(data.user.id))
+    localStorage.setItem("data", JSON.stringify(data))
     return data;
   } catch (error) {
     console.log(error)

@@ -1,22 +1,29 @@
-import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useEffect } from "react";
 
-const Users = (props) => {
+import { getUsers } from "../api/index";
+
+const GetUsers = (props) => {
+  const { users, setUsers } = props;
+
+  useEffect(() => {
+    getUsers()
+      .then((users) => {
+        setUsers(users);
+      })
+      .catch(console.error);
+  }, [setUsers]);
+
   return (
-    <Form inline>
-      <FormGroup>
-        <Label for="exampleEmail" hidden>Email</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
-      </FormGroup>
-      {' '}
-      <FormGroup>
-        <Label for="examplePassword" hidden>Password</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="Password" />
-      </FormGroup>
-      {' '}
-      <Button>Submit</Button>
-    </Form>
+    <div className="getAllUsers">
+      {users.map((user, index) => {
+        return (
+          <div key={index}>
+            <h1>Users: {user.firstName}</h1>
+          </div>
+        );
+      })}
+    </div>
   );
-}
+};
 
-export default Users;
+export default GetUsers;
