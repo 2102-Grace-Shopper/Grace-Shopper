@@ -1,16 +1,10 @@
 import React, { useEffect } from "react";
 import { getDogs } from "../api/index";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-} from "reactstrap";
-
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+
+
 
 const GetAllDogs = (props) => {
     const { dogs, setDogs } = props;

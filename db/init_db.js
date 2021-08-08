@@ -207,7 +207,7 @@ async function populateInitialDogData() {
         description: "big, cuddly and hairy",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/9ffWyMhx/beed82eb-f861-4532-a96c-72fc2f3e0147.png"
       },
       { 
         id: 14,
@@ -215,7 +215,7 @@ async function populateInitialDogData() {
         description: "too smart for his own good",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/PxpTFRNY/5e0deefd-427f-478f-9d04-0103d8969d67.jpg"
       },
       { 
         id: 15,
@@ -223,7 +223,7 @@ async function populateInitialDogData() {
         description: "he'll still your food, but you'll still love him",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/65NtYzK4/d7ae7fc7-e254-45da-8ac4-6afb898b6cc2.png"
       },
       { 
         id: 16,
@@ -231,7 +231,7 @@ async function populateInitialDogData() {
         description: "a pretty amazing dog",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/yx0B73mN/062013b4-8bad-4a6a-a69c-e4de7fdd86d8.jpg"
       },
       { 
         id: 17,
@@ -239,7 +239,7 @@ async function populateInitialDogData() {
         description: "always comes through when you need him",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/SsBk0fz5/5af10b62-c508-4bbc-b5e2-142d25d842a2.jpg"
       },
       { 
         id: 18,
@@ -247,7 +247,7 @@ async function populateInitialDogData() {
         description: "old and wise",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/gchGVQCP/831a74df-8de4-4150-a70f-12bd984f4bb4.jpg"
       },
       { 
         id: 19,
@@ -255,7 +255,7 @@ async function populateInitialDogData() {
         description: "the perfect mountain dog for your backpacking adventures",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/gJ76ZhQ6/c814f405-4bf3-40ac-a7a3-7adbf5ef8703.jpg"
       },
       { 
         id: 20,
@@ -263,7 +263,7 @@ async function populateInitialDogData() {
         description: "always smiling, making you laugh",
         price: 125.00,
         age: 2,
-        imageURL: "https://dog.ceo/api/breeds/image/random"
+        imageURL: "https://i.postimg.cc/vBcfdKF1/84cd21fe-6185-4b55-b075-7bc1418bf731.jpg"
       }
     ];
 
