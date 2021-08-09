@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-import {getProducts} from "../api/index"
+import {getProducts, addOrders} from "../api/index"
 
 import {
     Card,
@@ -55,29 +55,30 @@ const GetAllProducts = (props) => {
                     src={products.imageURL}
                     alt="Card image cap"
                     style={{
+                       marginTop: "10px",
                         marginBottom: "10px",
                         display: "flex",
                         justifyContent: "center",
                         alignSelf: "center",
-                        maxHeight: "250px",
-                        maxWidth: "225px",
+                        maxHeight: "150px",
+                        maxWidth: "150px",
                     }}
                   />
                   <CardBody>
                     <CardTitle tag="h5">{products.name}</CardTitle>
                     <br/>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      Price: {products.price}
+                      Price: ${products.price}
                       <br/>
                       <br/>
-                      inStock: ${products.inStock}
+                      inStock: {products.inStock}
                     </CardSubtitle>
                     <CardText>
                       Description:
                       <br/>  
                       {products.description}
                     </CardText>
-                    <Button>Add To Cart</Button>
+                    <Button onClick={async () => await addOrders(products.id)}>Add To Cart</Button>
                   </CardBody>
                 </Card>
               </div>

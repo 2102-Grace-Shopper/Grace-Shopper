@@ -8,11 +8,13 @@ import GetAllProducts from './Products';
 import Login from './Login'
 import Register from './Register'
 import GetUsers from './Users'
+import GetAllOrder from './Order'
 import './Styles.css'
 
 const App = () => {
   const [dogs, setDogs] = useState([]);
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -37,6 +39,13 @@ const App = () => {
         products = {products}
         setProducts = {setProducts}
         />
+         <Route path='/orders'>
+          <GetAllOrder
+          user = {user}
+          orders = { orders }
+          setOrders = {setOrders}
+          />
+        </Route>
         </Route>
         <Route path='/loginUser'>
         <Login

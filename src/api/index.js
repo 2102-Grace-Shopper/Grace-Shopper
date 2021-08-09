@@ -83,20 +83,21 @@ export async function removeDogFromWishlist(userId, dogId) {
   }
 }
 
-export async function addProductToOrder(userId, productId) {
+export async function addOrders(orderId) {
   try {
-    const{data} = await axios.post('/api/cart/add', {userId, productId})
+    const { data } = await axios.get('/api/order/add', {orderId})
     return data
-  } catch(error) {
+  } catch (error) {
     console.log(error)
   }
 }
 
-export async function removeProductFromOrder(userId, productId) {
+//checking out our orders
+export async function checkOut() {
   try {
-    const{data} = await axios.post('/api/cart/remove', {userId, productId})
+    const { data } = await axios.patch('/api/order/checkout')
     return data
-  } catch(error) {
+  } catch (error) {
     console.log(error)
   }
 }

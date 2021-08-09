@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {registerUser} from "../api/index";
-import {Link} from "react-router-dom"
+import {useHistory, Link} from "react-router-dom"
 
 const Register = ({setUser}) => {
     const [username, setUsername] = useState('')
@@ -9,6 +9,7 @@ const Register = ({setUser}) => {
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const history = useHistory()
 
   return (
     <div
@@ -21,6 +22,7 @@ const Register = ({setUser}) => {
             try {
                 const data = await registerUser(email, password, firstName, lastName, username)
                 setUsername(data)
+                history.push('/dogs')
             }catch (error) {}
         }}>
       <Row form>

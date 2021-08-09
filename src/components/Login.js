@@ -1,23 +1,15 @@
 import React, {useState} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {loginUser} from "../api/index";
-import {Link} from "react-router-dom"
+import { useHistory, Link} from "react-router-dom"
 
 const Login = ({setUser}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const history = useHistory()
   return (
     <div
     className = "loginPage"
-    onSubmit={ async (event) => {
-        event.preventDefault()
-
-        try {
-            const data = await loginUser(username, password)
-            setUser(data)
-            console.log(data)
-        } catch (error) {}
-    }}
     >
     <Form inline
     onSubmit={ async (event) => {
@@ -26,6 +18,8 @@ const Login = ({setUser}) => {
         try {
             const data = await loginUser(username, password)
             setUser(data)
+            console.log(data)
+            history.push('/products')
         } catch (error) {}
     }}>
       <FormGroup>

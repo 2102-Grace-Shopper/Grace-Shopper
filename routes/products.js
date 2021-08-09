@@ -1,4 +1,6 @@
-const productRouter = require('express').Router();
+const express = require('express');
+
+const productRouter = express.Router();
 
 const {
 getProduct,
@@ -9,29 +11,17 @@ createProduct,
 destroyProduct
 } = require('../db/index');
 
+//fix t
 productRouter.get('/', async (req, res, next) => {
     try {
         const products = await getProduct();
-<<<<<<< HEAD
-        res.send(
-            {products: products}
-            )
+        res.send({products:products})
+        return products
     } catch (error) {
         next(error)
     }
 })
 
-=======
-
-        res.send(
-            {products: products}
-            )
-    } catch (error) {
-        next(error)
-    }
-})
-
->>>>>>> 3f644327c00f3703533ff1da8f42a5f5b8b038e1
 productRouter.get('/:productId', async(req, res, next) => {
     const { productId } = req.params;
     try {
