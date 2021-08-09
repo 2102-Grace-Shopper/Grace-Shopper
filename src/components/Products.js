@@ -2,6 +2,8 @@ import React, {useEffect} from "react";
 
 import {getProducts, addOrders} from "../api/index"
 
+import {useHistory} from 'react-router-dom'
+
 import {
     Card,
     CardImg, 
@@ -15,14 +17,15 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllProducts = (props) => {
-    const { products, setProducts } = props;
+    const { products, setProducts} = props;
+    const history = useHistory();
     useEffect(() => {
        getProducts()
        .then((products) => {
            setProducts(products)
        })
        .catch(console.error)
-    }, [setProducts])
+    }, [])
 
     console.log(products)
 
@@ -78,7 +81,11 @@ const GetAllProducts = (props) => {
                       <br/>  
                       {products.description}
                     </CardText>
-                    <Button onClick={async () => await addOrders(products.id)}>Add To Cart</Button>
+                 <Button onClick={async () => { 
+                      await addOrders(); 
+                      history.push('/orders')
+                    }
+                  }>Add To Cart</Button>
                   </CardBody>
                 </Card>
               </div>

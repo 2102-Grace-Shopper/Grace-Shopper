@@ -27,7 +27,7 @@ const addBreedToDog = async ({dogId, breedId}) => {
 const createDogs = async ({name, description, price, age, imageURL = []}) => {
     try {
     const { rows: [dogs] } = await client.query(`
-      INSERT INTO dogs (name, description, price, age, imageURL)
+      INSERT INTO dogs (name, description, price, age, "imageURL")
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `, [name, description, price, age, imageURL]);
@@ -75,6 +75,8 @@ const createDogs = async ({name, description, price, age, imageURL = []}) => {
         };
       }
   
+    // Still in progress -- throwing error in code. Needs help.
+
     //   const { rows: [breed] } = await client.query(`
     //     SELECT breed.*
     //     FROM breed
@@ -95,6 +97,8 @@ const createDogs = async ({name, description, price, age, imageURL = []}) => {
 
 //   getDogById(1)
 
+
+
   //Works!    
   const getDogsByBreadName = async (name) => {
     try {
@@ -114,7 +118,7 @@ const createDogs = async ({name, description, price, age, imageURL = []}) => {
   };
 
 
-  //Needs Help -- Need to test
+  //Needs Help -- Need to test -- keep dogs and breeds seperate
   const updateDog = async (dogId, fields = {}) => {
         const { breeds } = fields;
         delete fields.breeds;
@@ -143,6 +147,7 @@ const createDogs = async ({name, description, price, age, imageURL = []}) => {
             return await getDogById(dogId);
           }
       
+          // Could put this in a new function (updateDogBreed())
           // Make any new breeds that need to be made -- need createBreeds from Rene
           const breedList = await createBreed(breeds);
           const breedListIdString = breedList.map((breed) => `${breed.id}`).join(", ");

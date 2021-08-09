@@ -1,16 +1,10 @@
 import React, { useEffect } from "react";
 import { getDogs } from "../api/index";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-} from "reactstrap";
-
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+
+
 
 const GetAllDogs = (props) => {
     const { dogs, setDogs } = props;
@@ -54,12 +48,13 @@ const GetAllDogs = (props) => {
                   src={dogs.imageURL}
                   alt="Card image cap"
                   style={{
+                      marginTop: "10px",
                       marginBottom: "10px",
                       display: "flex",
                       justifyContent: "center",
                       alignSelf: "center",
-                      maxHeight: "250px",
-                      maxWidth: "225px",
+                      maxHeight: "150px",
+                      maxWidth: "275px",
                   }}
                 />
                 <CardBody>
@@ -87,4 +82,3 @@ const GetAllDogs = (props) => {
   };
 
 export default GetAllDogs;
-

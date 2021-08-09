@@ -1,21 +1,12 @@
-// code to build and initialize DB goes here
 const { client } = require('./client');
-
 const { createDogs } = require('./dogs')
-
 const { createBreed } = require('./breed')
-
 const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dog_breed')
-
+const { createReviews } = require('./reviews')
 const { createOrders, getOrders } = require('./orders');
-
 const {createProduct,  getProduct } = require('./products')
-
 const { addOrderProducts } = require('./order_products')
-
-const {createReviews} = require('./reviews')
-
- const {createUser} =require('./users')
+const { createUser } =require('./users')
 
 async function buildTables() {
   try {
@@ -44,7 +35,8 @@ async function buildTables() {
        name VARCHAR UNIQUE,
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
-       age INTEGER  
+       age INTEGER,
+       "imageURL" VARCHAR(255) DEFAULT 'imageUrl goes here'
      );
      CREATE TABLE breed(
        id SERIAL PRIMARY KEY,
@@ -57,13 +49,13 @@ async function buildTables() {
        UNIQUE("dogId", "breedId")
      );
      CREATE TABLE products(
-       id SERIAL PRIMARY KEY,
-       name VARCHAR(255) NOT NULL,
-       description VARCHAR(255) NOT NULL,
-       price VARCHAR(255) NOT NULL,
-       "imageURL" VARCHAR(255) DEFAULT 'imageUrl goes here',
-       "inStock" BOOLEAN DEFAULT false,
-       category VARCHAR(255) NOT NULL
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      description VARCHAR(255) NOT NULL,
+      price VARCHAR(255) NOT NULL,
+      "imageURL" VARCHAR(255) DEFAULT 'imageUrl goes here',
+      "inStock" BOOLEAN DEFAULT false,
+      category VARCHAR(255) NOT NULL
      );
      CREATE TABLE users(
        id SERIAL PRIMARY KEY,
@@ -104,229 +96,6 @@ async function buildTables() {
   }
 }
 
-// default dummy data for products
-async function populateInitialData() {
-  console.log('Starting to Create Products')
-  try {
-    const seedProducts = [
-      {
-      name: 'Leather Dog Collar', 
-      description: 'A great accessory that will make all the dogs and dogs owners jealous. ', 
-      price: 28.00, 
-      imageURL: 'https://i.postimg.cc/dQfhmCvn/61l-W8-R-w-O9-L-AC-SY450.jpg',
-      inStock: true,
-      category: 'collar'
-      },
-      {
-        name: 'Heart Tag Dog Collar',
-        description: 'An adorable collar that will make your furry friend 10x cuter. ',
-        price: 30.00,
-        imageURL: 'https://i.postimg.cc/BbbMWKwM/2953948-back-1.jpg',
-        inStock: true,
-        category: 'collar'
-      },
-      {
-        name: 'Stainless Steel Pet Bowl',
-        description: 'Perfect bowl for our little messy furry friends',
-        price: 15.00,
-        imageURL: 'https://i.postimg.cc/QMPpBy6k/61m-BXZiwiw-L.jpg',
-        inStock: true,
-        category: 'bowl'
-      },
-      {
-        name: 'Double Plastic Pet Bowl ',
-        description: 'Save more by buying this pet bowl that carries both treats and meals for our furry friends.',
-        imageURL: 'https://i.postimg.cc/DygLQZjz/Custom-Printed-Double-Plastic-Pet-Bowl-500x500.jpg',
-        price: 12.00,
-        inStock: true,
-        category: 'bowl'
-      },
-      {
-        name: 'Comfy Yellow Bed',
-        description: 'Keep your furry friend comfy while sleeping or relaxing on this comfy yellow bed.',
-        imageURL: 'https://i.postimg.cc/yx5q2Bn3/71-GI4-D-l12-L-AC-SX466.jpg',
-        price: 34.00,
-        inStock: true,
-        category: 'bed'
-      },
-      {
-        name: 'Fluffy Donut-Shaped Bed',
-        description: 'Our furry friends will forever dream of donuts with this super comfy bed.',
-        imageURL: 'https://i.postimg.cc/jjvFGtSq/71-Rka-SEY0z-L-AC-SL1500.jpg',
-        price: 38.00,
-        inStock: true,
-        category: 'bed'
-      },
-      {
-        name: 'Rubber Fetch Balls',
-        description: 'A set of three rubber fetch balls to play catch with your furry friend',
-        price: 5.00,
-        imageURL: 'https://i.postimg.cc/J4NVpwZ0/152846-Main-AC-SL400-V1549655069.jpg',
-        inStock: true,
-        category: 'toys'
-      },
-      {
-        name: 'Colorful Cotton Rope',
-        description: 'Great toy for dogs to wrestle with their owner or other dogs',
-        price: 12.00,
-        imageURL: 'https://i.postimg.cc/c4mkKdfR/dog-toys-mammoth-rope-2knot.jpg',
-        inStock: true,
-        category: 'toys'
-      },
-      {
-        name: 'Dog Chew Bone',
-        description: 'A set of three dog chew bones that will have your furry friend craving more',
-        price: 18.00,
-        imageURL: 'https://i.postimg.cc/26GLQ9GK/31-QPEG4v-Ji-L-AC.jpg',
-        inStock: true,
-        category: 'food'
-      },
-      {
-        name: 'Dog Treats',
-        description: 'Delicious dog treats that will have your furry friend mouthwatering',
-        price: 25.00,
-        imageURL: 'https://i.postimg.cc/JhWs9CdF/Peanut-Butter-Dog-Treats-square-1400.jpg',
-        inStock: true,
-        category: 'food'
-      }
-    ]
-    const launchProducts = await Promise.all(seedProducts.map((product) => createProduct(product)))
-    console.log('Products Created')
-    console.log(launchProducts) 
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function populateInitialOrders() {
-  console.log('Starting to Create Orders')
-  try {
-    const seedOrders = [
-      {
-        status: 'created',
-        userId: '3',
-        datePlaced: '2021-07-19 18:10:25-07'
-      },
-      {
-        status: 'canceled',
-        userId: '1',
-        datePlaced: '2021-06-05 10:10:25-07'
-      },
-      {
-        status:'created',
-        userId: '2',
-        datePlaced: '2021-05-22 11:10:25-07'
-      }
-    ]
-    const launchOrders = await Promise.all(seedOrders.map((order) => createOrders(order)))
-    console.log('Orders created')
-    console.log(launchOrders)
-  } catch (error) {
-    console.error("Error Populating orders!")
-    throw error;
-  }
-}
-
-async function populateInitialOrderProducts() {
-  console.log('Starting to Create Order Products')
-  try {
-    const [order1, order2, order3] = await getOrders();
-    const [ prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10] = await getProduct();
-
-    const seedOrderProducts = [
-      {
-        productId: prod1.id,
-        orderId: order1.id,
-        price: prod1.price,
-        quantity: 2
-      },
-      {
-        productId: prod2.id,
-        orderId: order1.id,
-        price: prod2.price,
-        quantity: 1
-      },
-      {
-        productId: prod3.id,
-        orderId: order2.id,
-        price: prod3.price,
-        quantity: 3
-      },
-      {
-        productId: prod4.id,
-        orderId: order3.id,
-        price: prod4.price,
-        quantity: 4
-      }
-    ]
-
-    const launchOrderProducts = await Promise.all(seedOrderProducts.map((orderProducts) => addOrderProducts(orderProducts)))
-    console.log('order_products created: ', launchOrderProducts)
-    console.log('Finished Creating Order Products')
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-async function populateInitialReviews(){
-  try{
-    console.log("Creating Reviews...");
-    const seedDataReviews = [
-      {
-        id: "1",
-        title: "Review 1",
-        content: "This is a test",
-        userId:1,
-        productId: 1
-      },
-    ];
-
-    const launchSeedDataReviews = await Promise.all(seedDataReviews.map((review) => createReviews(review)));
-    console.log("Here are your seeded reviews:", launchSeedDataReviews)
-
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function populateInitialUsers() {
-  try {
-    console.log("Creating users...");
-    // create useful starting data
-    const seedUsers = [
-      {
-        firstName: "Bob",
-        lastName: "Smith",
-        email: "bobswag@gswag.com",
-        username: "bobbyboi",
-        password: "swag",
-        isAdmin: false
-      },
-      {
-        firstName: "Admin",
-        lastName: "Admin",
-        email: "Admin@admin.com",
-        username: "Admin",
-        password: "Admin",
-        isAdmin: true
-      },
-      {
-        firstName: "Michael",
-        lastName: "Scott",
-        email: "dundermifflin@gmail.com",
-        username: "michaelscott",
-        password: "password",
-        isAdmin: false
-      }
-    ]
-    const launchUsers = await Promise.all(seedUsers.map((user) => createUser(user)))
-    console.log('Here are the users', launchUsers);
-  } catch (error) {
-    throw error;
-  }
-};
-
 async function populateInitialDogData() {
   try {
     console.log("Creating Dogs...");
@@ -335,141 +104,161 @@ async function populateInitialDogData() {
         id: 1,
         name: "Fido",
         description: "a classic great dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/kG8bKwrR/815167e9-f69a-4557-84de-e7eba5c2ba53.jpg"
       },
       { 
         id: 2,
         name: "Bella",
         description: "smart and witty",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/GhsYX65M/8536-28743-5665.jpg"
       },
       { 
         id: 3,
         name: "Charlie",
         description: "loves to play fetch",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/BZjMGYzF/1326984c-39b0-492c-a773-f120d747a7e2.jpg"
       },
       { 
         id: 4,
         name: "Lucy",
         description: "fast and playful",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/XNtxNKMz/1ef19cb9-b8a6-47b8-bde2-ac9383ac5af0.jpg"
       },
       { 
         id: 5,
         name: "Duke",
         description: "a beautiful hairy dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/brSGF23G/2505f628-614d-4521-a26b-70897a51d4fd.jpg"
       },
       { 
         id: 6,
         name: "Molly",
         description: "loves to hangout in the sunshine",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/PrZyCLTr/440f11bf-b9d4-44de-a5c3-3f0893b04fa2.jpg"
       },
       { 
         id: 7,
         name: "JoJo",
         description: "a great cuddler",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/Vk8RnYk9/5dfed833-2fc2-4962-abda-cbb65d1370d6.jpg"
       },
       { 
         id: 8,
         name: "Oliver",
         description: "a very sophisticated animal",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/fk434Tr8/8617-11546-19302.jpg"
       },
       { 
         id: 9,
         name: "Penny",
         description: "a bit ferocious but a nice dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/T2mBw2qy/16511ded-7464-4481-b26e-b3411957a42c.png"
       },
       { 
         id: 10,
         name: "Zeus",
         description: "the king of all dogs",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/sxpL0KDP/vh7i79y2qhhy.jpg"
       },
       { 
         id: 11,
         name: "Scout",
         description: "the best adventure dog in the world",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/4dHqpsDS/14769-27888-18622.jpg"
       },
       { 
         id: 12,
         name: "Crinkles",
         description: "the most lovable face ever",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/D0VDgRFy/24141-29115-27188.jpg"
       },
       { 
         id: 13,
         name: "Moose",
         description: "big, cuddly and hairy",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/9ffWyMhx/beed82eb-f861-4532-a96c-72fc2f3e0147.png"
       },
       { 
         id: 14,
         name: "Dexter",
         description: "too smart for his own good",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/PxpTFRNY/5e0deefd-427f-478f-9d04-0103d8969d67.jpg"
       },
       { 
         id: 15,
         name: "Bandit",
         description: "he'll still your food, but you'll still love him",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/65NtYzK4/d7ae7fc7-e254-45da-8ac4-6afb898b6cc2.png"
       },
       { 
         id: 16,
         name: "Oakley",
         description: "a pretty amazing dog",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/yx0B73mN/062013b4-8bad-4a6a-a69c-e4de7fdd86d8.jpg"
       },
       { 
         id: 17,
         name: "Ace",
         description: "always comes through when you need him",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/SsBk0fz5/5af10b62-c508-4bbc-b5e2-142d25d842a2.jpg"
       },
       { 
         id: 18,
         name: "Winnie",
         description: "old and wise",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/gchGVQCP/831a74df-8de4-4150-a70f-12bd984f4bb4.jpg"
       },
       { 
         id: 19,
         name: "Dakota",
         description: "the perfect mountain dog for your backpacking adventures",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/gJ76ZhQ6/c814f405-4bf3-40ac-a7a3-7adbf5ef8703.jpg"
       },
       { 
         id: 20,
         name: "Sunny",
         description: "always smiling, making you laugh",
-        price: 125,
+        price: 125.00,
         age: 2,
+        imageURL: "https://i.postimg.cc/vBcfdKF1/84cd21fe-6185-4b55-b075-7bc1418bf731.jpg"
       }
     ];
 
@@ -579,14 +368,243 @@ async function populateInitialDogBreedData(){
   }
 }
 
+async function populateInitialUsers() {
+  try {
+    console.log("Creating users...");
+    // create useful starting data
+    const seedUsers = [
+      {
+        id: 1,
+        firstName: "Bob",
+        lastName: "Smith",
+        email: "bobswag@gswag.com",
+        username: "bobbyboi",
+        password: "swag",
+        isAdmin: false
+      },
+      {
+        id: 2,
+        firstName: "Admin",
+        lastName: "Admin",
+        email: "Admin@admin.com",
+        username: "Admin",
+        password: "Admin",
+        isAdmin: true
+      },
+      {
+        id: 3,
+        firstName: "Michael",
+        lastName: "Scott",
+        email: "dundermifflin@gmail.com",
+        username: "michaelscott",
+        password: "password",
+        isAdmin: false
+      }
+    ]
+    const launchUsers = await Promise.all(seedUsers.map((user) => createUser(user)))
+    // console.log('Here are the users', launchUsers);
+    console.log('Users are seeded');
+  } catch (error) {
+    throw error;
+  }
+};
+
+async function populateInitialProductsData() {
+  console.log('Starting to Create Products')
+  try {
+    const seedProducts = [
+      {
+      name: 'Leather Dog Collar', 
+      description: 'A great accessory that will make all the dogs and dogs owners jealous. ', 
+      price: 28.00, 
+      imageURL: 'https://i.postimg.cc/dQfhmCvn/61l-W8-R-w-O9-L-AC-SY450.jpg',
+      inStock: true,
+      category: 'collar'
+      },
+      {
+        name: 'Heart Tag Dog Collar',
+        description: 'An adorable collar that will make your furry friend 10x cuter. ',
+        price: 30.00,
+        imageURL: 'https://i.postimg.cc/BbbMWKwM/2953948-back-1.jpg',
+        inStock: true,
+        category: 'collar'
+      },
+      {
+        name: 'Stainless Steel Pet Bowl',
+        description: 'Perfect bowl for our little messy furry friends',
+        price: 15.00,
+        imageURL: 'https://i.postimg.cc/QMPpBy6k/61m-BXZiwiw-L.jpg',
+        inStock: true,
+        category: 'bowl'
+      },
+      {
+        name: 'Double Plastic Pet Bowl ',
+        description: 'Save more by buying this pet bowl that carries both treats and meals for our furry friends.',
+        imageURL: 'https://i.postimg.cc/DygLQZjz/Custom-Printed-Double-Plastic-Pet-Bowl-500x500.jpg',
+        price: 12.00,
+        inStock: true,
+        category: 'bowl'
+      },
+      {
+        name: 'Comfy Yellow Bed',
+        description: 'Keep your furry friend comfy while sleeping or relaxing on this comfy yellow bed.',
+        imageURL: 'https://i.postimg.cc/yx5q2Bn3/71-GI4-D-l12-L-AC-SX466.jpg',
+        price: 34.00,
+        inStock: true,
+        category: 'bed'
+      },
+      {
+        name: 'Fluffy Donut-Shaped Bed',
+        description: 'Our furry friends will forever dream of donuts with this super comfy bed.',
+        imageURL: 'https://i.postimg.cc/jjvFGtSq/71-Rka-SEY0z-L-AC-SL1500.jpg',
+        price: 38.00,
+        inStock: true,
+        category: 'bed'
+      },
+      {
+        name: 'Rubber Fetch Balls',
+        description: 'A set of three rubber fetch balls to play catch with your furry friend',
+        price: 5.00,
+        imageURL: 'https://i.postimg.cc/J4NVpwZ0/152846-Main-AC-SL400-V1549655069.jpg',
+        inStock: true,
+        category: 'toys'
+      },
+      {
+        name: 'Colorful Cotton Rope',
+        description: 'Great toy for dogs to wrestle with their owner or other dogs',
+        price: 12.00,
+        imageURL: 'https://i.postimg.cc/c4mkKdfR/dog-toys-mammoth-rope-2knot.jpg',
+        inStock: true,
+        category: 'toys'
+      },
+      {
+        name: 'Dog Chew Bone',
+        description: 'A set of three dog chew bones that will have your furry friend craving more',
+        price: 18.00,
+        imageURL: 'https://i.postimg.cc/26GLQ9GK/31-QPEG4v-Ji-L-AC.jpg',
+        inStock: true,
+        category: 'food'
+      },
+      {
+        name: 'Dog Treats',
+        description: 'Delicious dog treats that will have your furry friend mouthwatering',
+        price: 25.00,
+        imageURL: 'https://i.postimg.cc/JhWs9CdF/Peanut-Butter-Dog-Treats-square-1400.jpg',
+        inStock: true,
+        category: 'food'
+      }
+    ]
+    const launchProducts = await Promise.all(seedProducts.map((product) => createProduct(product)))
+    console.log('Products Created')
+    // console.log(launchProducts) 
+  } catch (error) {
+    throw error;
+  }
+}
+
+//waiting on users to add usersId
+async function populateInitialOrders() {
+  console.log('Starting to Create Orders')
+  try {
+    const seedOrders = [
+      {
+        status: 'created',
+        userId: '1',
+        datePlaced: '2021-07-19 18:10:25-07'
+      },
+      {
+        status: 'canceled',
+        userId: '2',
+        datePlaced: '2021-06-05 10:10:25-07'
+      },
+      {
+        status:'created',
+        userId: '3',
+        datePlaced: '2021-05-22 11:10:25-07'
+      }
+    ]
+    const launchOrders = await Promise.all(seedOrders.map((order) => createOrders(order)))
+    console.log('Orders created')
+    // console.log(launchOrders)
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialOrderProducts() {
+  console.log('Starting to Create Order Products')
+  try {
+    const [order1, order2, order3] = await getOrders();
+    const [ prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10] = await getProduct();
+
+    const seedOrderProducts = [
+      {
+        productId: prod1.id,
+        orderId: order1.id,
+        price: prod1.price,
+        quantity: 2
+      },
+      {
+        productId: prod2.id,
+        orderId: order1.id,
+        price: prod2.price,
+        quantity: 1
+      },
+      {
+        productId: prod3.id,
+        orderId: order2.id,
+        price: prod3.price,
+        quantity: 3
+      },
+      {
+        productId: prod4.id,
+        orderId: order3.id,
+        price: prod4.price,
+        quantity: 4
+      }
+    ]
+
+    const launchOrderProducts = await Promise.all(seedOrderProducts.map((orderProducts) => addOrderProducts(orderProducts)))
+    // console.log('order_products created: ', launchOrderProducts)
+    console.log('Finished Creating Order Products')
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialReviews(){
+  try{
+    console.log("Creating Reviews...");
+    const seedDataReviews = [
+      {
+        id: 1,
+        title: "Review 1",
+        content: "This is a test",
+        userId:1,
+        productId: 1
+      },
+    ];
+
+    const launchSeedDataReviews = await Promise.all(seedDataReviews.map((review) => createReviews(review)));
+    // console.log("Here are your seeded reviews:", launchSeedDataReviews)
+    console.log("Reviws are seeded");
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+
 buildTables()
-  .then(populateInitialData)
-  .then(populateInitialOrders)
-  .then(populateInitialOrderProducts)
+  .then(populateInitialDogData)
+  .then(populateInitialBreedData)
   .then(populateInitialDogBreedData)
   .then(populateInitialUsers)
-  .then(populateInitialBreedData)
-  .then(populateInitialDogData)
+  .then(populateInitialProductsData)
+  .then(populateInitialOrders)
+  .then(populateInitialOrderProducts)
   .then(populateInitialReviews)
   .catch(console.error)
   .finally(() => client.end());
