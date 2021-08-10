@@ -25,7 +25,7 @@ const GetAllProducts = (props) => {
            setProducts(products)
        })
        .catch(console.error)
-    }, [])
+    }, [setProducts])
 
     console.log(products)
 

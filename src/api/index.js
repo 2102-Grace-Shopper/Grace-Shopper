@@ -41,20 +41,18 @@ export async function getUsers() {
 
 }
 
-//adding products to carts - switch from /order to /cart
-export async function addOrders(userId, orderId) {
+export async function addOrders(orderId) {
   try {
-    const { data } = await axios.get('/api/cart/add', {userId, orderId})
+    const { data } = await axios.get('/api/orders', {orderId})
     return data
   } catch (error) {
     console.log(error)
   }
 }
 
-//checking out our orders - switch from /order to /cart
-export async function checkOut(userId) {
+export async function checkOut() {
   try {
-    const { data } = await axios.patch('/api/cart/checkout',{userId})
+    const { data } = await axios.patch('/api/orders/checkout')
     return data
   } catch (error) {
     console.log(error)
@@ -115,27 +113,9 @@ export async function removeDogFromWishlist(userId, dogId) {
 
 export async function removeProductFromOrder(userId, productId) {
   try {
-    const{data} = await axios.post('/api/cart/remove', {userId, productId})
+    const{data} = await axios.post('/api/orders/remove', {userId, productId})
     return data
   } catch(error) {
-    console.log(error)
-  }
-}
-
-export async function getPendingOrdersByUser(userId) {
-  try {
-    const {data} = await axios.get('api/cart/pending', {userId})
-    return data;
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export async function getCompletedOrdersByUser(userId) {
-  try {
-    const {data} = await axios.get('api/cart/completed', {userId})
-    return data
-  } catch (error) {
     console.log(error)
   }
 }
