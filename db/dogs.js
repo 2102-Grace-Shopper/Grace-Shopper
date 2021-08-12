@@ -24,13 +24,13 @@ const addBreedToDog = async ({dogId, breedId}) => {
   
 
 // Works!
-const createDogs = async ({name, description, price, age, imageURL = []}) => {
+const createDogs = async ({name, breed, description, price, age, imageURL = []}) => {
     try {
     const { rows: [dogs] } = await client.query(`
-      INSERT INTO dogs (name, description, price, age, "imageURL")
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO dogs (name, breed, description, price, age, "imageURL")
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
-    `, [name, description, price, age, imageURL]);
+    `, [name, breed, description, price, age, imageURL]);
 
     return dogs;
 
