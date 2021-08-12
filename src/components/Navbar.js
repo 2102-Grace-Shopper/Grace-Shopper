@@ -1,9 +1,16 @@
 import React from "react"
 import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {logoutUser} from '../api/index'
 
-const NavReact = () => {
+const NavReact = ({user}) => {
     return(
+        <div>
+        {user 
+        ? <h3>Hello {user.user.username}! </h3>
+        : ''
+        }
+
     <Navbar bg="primary" variant="dark" expand="lg">
     <Container>
         <Navbar.Brand href="/">Dog Adoption</Navbar.Brand>
@@ -22,7 +29,8 @@ const NavReact = () => {
         </Navbar.Collapse>
     </Container>
     </Navbar> 
-        )
+    </div>
+    )
 }
 
 export default NavReact;

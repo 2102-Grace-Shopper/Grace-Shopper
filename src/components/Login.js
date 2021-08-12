@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import {loginUser} from "../api/index";
+import {loginUserForm} from "../api/index";
 import { useHistory, Link} from "react-router-dom"
 
 const Login = ({setUser}) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
     const history = useHistory()
   return (
     <div
@@ -16,7 +16,7 @@ const Login = ({setUser}) => {
         event.preventDefault()
 
         try {
-            const data = await loginUser(username, password)
+            const data = await loginUserForm(username, password)
             setUser(data)
             console.log(data)
             history.push('/products')
@@ -31,7 +31,7 @@ const Login = ({setUser}) => {
                 onChange={(event) => setUsername(event.target.value)} 
                 placeholder="Username" />
       </FormGroup>
-      {''}
+      {""}
       <FormGroup>
         <Label for="password" hidden></Label>
         <Input type="text" 

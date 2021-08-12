@@ -578,4 +578,4 @@ buildTables()
   .then(populateInitialOrders)
   .then(populateInitialOrderProducts)
   .catch(console.error)
-  .finally(() => client.end());
+  .finally(() => client.end)

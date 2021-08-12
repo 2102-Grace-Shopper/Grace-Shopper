@@ -31,20 +31,19 @@ export async function getUsers() {
 
 }
 
-export async function registerUser(username, password) {
+export async function registerUserForm(username, password) {
   try {
     const {data} = await axios.post('/api/users/register', {username, password})
 
     
-    localStorage.setItem("token", JSON.stringify(data.token))
-    localStorage.setItem("userId", JSON.stringify(data.user.id))
+    localStorage.setItem("data", JSON.stringify(data))
     return data;
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function loginUser(username, password) {
+export async function loginUserForm(username, password) {
   try {
     const {data} = await axios.post('/api/users/login', {username, password})
 
@@ -59,7 +58,6 @@ export async function loginUser(username, password) {
 export async function logoutUser() {
   try {
     localStorage.removeItem("token");
-    localStorage.removeItem("userId");
   } catch (error) {
     console.log(error)
   }

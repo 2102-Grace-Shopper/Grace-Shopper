@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { getUsers } from "../api/index";
 
-const GetUsers = (props) => {
+const GetAllUsers = (props) => {
   const { users, setUsers } = props;
 
   useEffect(() => {
@@ -14,11 +14,11 @@ const GetUsers = (props) => {
   }, [setUsers]);
 
   return (
-    <div className="getAllUsers">
+    <div className="Users">
       {users.map((user, index) => {
         return (
           <div key={index}>
-            <h1>Users: {user.firstName}</h1>
+            <h1>Users: {user.username}</h1>
           </div>
         );
       })}
@@ -26,4 +26,4 @@ const GetUsers = (props) => {
   );
 };
 
-export default GetUsers;
+export default GetAllUsers;
