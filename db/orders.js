@@ -136,7 +136,7 @@ async function completedOrder() {
         WHERE id=$1
         RETURNING *
         `, [id])
-
+    
         return order
     } catch (error) {
         throw error;

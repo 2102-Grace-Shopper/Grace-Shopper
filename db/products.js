@@ -44,7 +44,6 @@ async function getProductByCategory(category) {
     }
 }
 
-//Under Construction... still waiting for reviews to add onto...
 async function getProductById(id) {
     try {
         const { rows: [product] } = await client.query(`
@@ -106,8 +105,6 @@ async function destroyProduct({id}) {
         throw error
     }
 }
-
-// getProductById(console.log(1,1))
 
 module.exports = {
     client, 

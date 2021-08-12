@@ -48,7 +48,7 @@ async function updateOrderProduct({id, price, quantity}) {
 async function destoryOrderProduct(id) {
     try {
         const { rows: [orderProducts]} = await client.query(`
-        DELETE from order_products
+        DELETE  FROM order_products
         WHERE id=$1
         RETURNING *
         `, [id])

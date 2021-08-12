@@ -18,7 +18,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllProducts = (props) => {
     const { products, setProducts} = props;
-    console.log(props)
     const history = useHistory();
     useEffect(() => {
        getProducts()
@@ -83,7 +82,6 @@ const GetAllProducts = (props) => {
                     </CardText>
                  <Button onClick={async () => { 
                       await addProductsToOrders(products); 
-                      console.log('we up in this b')
                       history.push('/orders/')
                     }
                   }>

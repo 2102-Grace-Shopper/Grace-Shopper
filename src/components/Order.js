@@ -70,7 +70,11 @@ const GetAllOrder = (props) => {
                     </CardSubtitle>
                     <Button onClick={ async () => {checkOut(orders.id)
                     }}>Check Out</Button>
-                  <Button onClick={async () => await removeProductFromOrder(orders.id)}>Remove</Button>
+                  <Button onClick={async () => {
+                    await removeProductFromOrder(orders)
+                    console.log('should be removing')
+                  }}
+                  >Remove</Button>
                   </CardBody>
                 </Card>
               </div>

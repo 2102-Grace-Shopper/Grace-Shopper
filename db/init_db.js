@@ -502,75 +502,75 @@ async function populateInitialProductsData() {
   }
 }
 
-//waiting on users to add usersId
-async function populateInitialOrders() {
-  console.log('Starting to Create Orders')
-  try {
-    const seedOrders = [
-      {
-        status: 'created',
-        userId: '1',
-        datePlaced: '2021-07-19 18:10:25-07'
-      },
-      {
-        status: 'canceled',
-        userId: '2',
-        datePlaced: '2021-06-05 10:10:25-07'
-      },
-      {
-        status:'created',
-        userId: '3',
-        datePlaced: '2021-05-22 11:10:25-07'
-      }
-    ]
-    const launchOrders = await Promise.all(seedOrders.map((order) => createOrders(order)))
-    console.log('Orders created')
-    // console.log(launchOrders)
-  } catch (error) {
-    throw error;
-  }
-}
+// //waiting on users to add usersId
+// async function populateInitialOrders() {
+//   console.log('Starting to Create Orders')
+//   try {
+//     const seedOrders = [
+//       {
+//         status: 'created',
+//         userId: '1',
+//         datePlaced: '2021-07-19 18:10:25-07'
+//       },
+//       {
+//         status: 'canceled',
+//         userId: '2',
+//         datePlaced: '2021-06-05 10:10:25-07'
+//       },
+//       {
+//         status:'created',
+//         userId: '3',
+//         datePlaced: '2021-05-22 11:10:25-07'
+//       }
+//     ]
+//     const launchOrders = await Promise.all(seedOrders.map((order) => createOrders(order)))
+//     console.log('Orders created')
+//     // console.log(launchOrders)
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
-async function populateInitialOrderProducts() {
-  console.log('Starting to Create Order Products')
-  try {
-    const [order1, order2, order3] = await getOrders();
-    const [ prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10] = await getProduct();
+// async function populateInitialOrderProducts() {
+//   console.log('Starting to Create Order Products')
+//   try {
+//     const [order1, order2, order3] = await getOrders();
+//     const [ prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10] = await getProduct();
 
-    const seedOrderProducts = [
-      {
-        productId: prod1.id,
-        orderId: order1.id,
-        price: prod1.price,
-        quantity: 2
-      },
-      {
-        productId: prod2.id,
-        orderId: order1.id,
-        price: prod2.price,
-        quantity: 1
-      },
-      {
-        productId: prod3.id,
-        orderId: order2.id,
-        price: prod3.price,
-        quantity: 3
-      },
-      {
-        productId: prod4.id,
-        orderId: order3.id,
-        price: prod4.price,
-        quantity: 4
-      }
-    ]
+//     const seedOrderProducts = [
+//       {
+//         productId: prod1.id,
+//         orderId: order1.id,
+//         price: prod1.price,
+//         quantity: 2
+//       },
+//       {
+//         productId: prod2.id,
+//         orderId: order1.id,
+//         price: prod2.price,
+//         quantity: 1
+//       },
+//       {
+//         productId: prod3.id,
+//         orderId: order2.id,
+//         price: prod3.price,
+//         quantity: 3
+//       },
+//       {
+//         productId: prod4.id,
+//         orderId: order3.id,
+//         price: prod4.price,
+//         quantity: 4
+//       }
+//     ]
 
-    const launchOrderProducts = await Promise.all(seedOrderProducts.map((orderProducts) => addOrderProducts(orderProducts)))
-    // console.log('order_products created: ', launchOrderProducts)
-    console.log('Finished Creating Order Products')
-  } catch (error) {
-    throw error;
-  }
-}
+//     const launchOrderProducts = await Promise.all(seedOrderProducts.map((orderProducts) => addOrderProducts(orderProducts)))
+//     // console.log('order_products created: ', launchOrderProducts)
+//     console.log('Finished Creating Order Products')
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function populateInitialReviews(){
   try{
@@ -603,8 +603,8 @@ buildTables()
   .then(populateInitialDogBreedData)
   .then(populateInitialUsers)
   .then(populateInitialProductsData)
-  .then(populateInitialOrders)
-  .then(populateInitialOrderProducts)
+  // .then(populateInitialOrders)
+  // .then(populateInitialOrderProducts)
   .then(populateInitialReviews)
   .catch(console.error)
   .finally(() => client.end());
