@@ -13,7 +13,7 @@ import './Styles.css'
 
 const App = () => {
   const [dogs, setDogs] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts, onAdd] = useState([]);
   const [orders, setOrders] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -22,7 +22,6 @@ const App = () => {
   const [lastName, setLastName] = useState('')
   const [users, setUsers] = useState([])
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('data')))
-
   return (
     <Router>
       <Switch>
@@ -36,16 +35,16 @@ const App = () => {
       </Route>
       <Route path='/products'>
         <GetAllProducts
+        onAdd = {onAdd}
         products = {products}
         setProducts = {setProducts}
         />
-         <Route path='/orders'>
+        </Route>
+        <Route path='/orders'>
           <GetAllOrder
-          user = {user}
-          orders = { orders }
+          orders = {orders}
           setOrders = {setOrders}
           />
-        </Route>
         </Route>
         <Route path='/loginUser'>
         <Login

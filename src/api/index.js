@@ -41,12 +41,21 @@ export async function getUsers() {
 
 }
 
-export async function addOrders(orderId) {
+export async function getOrders() {
   try {
-    const { data } = await axios.get('/api/orders', {orderId})
+    const { data } = await axios.get('/api/orders')
     return data
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function addProductsToOrders(productId) {
+  try {
+    const {data} = await axios.post('/api/orders', {productId})
+    return data
+  } catch (error) {
+    console.error(error)
   }
 }
 

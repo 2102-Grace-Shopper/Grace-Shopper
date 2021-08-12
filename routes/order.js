@@ -29,7 +29,7 @@ orderRouter.get('/:orderId', async(req, res, next) => {
     }
 })
 
-//need to fix userId on db
+
 orderRouter.post('/', async(req, res, next) => {
    const {status, datePlaced } = req.body;
    try {
