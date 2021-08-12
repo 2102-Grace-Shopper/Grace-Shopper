@@ -31,9 +31,9 @@ export async function getUsers() {
 
 }
 
-export async function registerUserForm(username, password) {
+export async function registerUserForm(username, password, firstName, lastName, email) {
   try {
-    const {data} = await axios.post('/api/users/register', {username, password})
+    const {data} = await axios.post('/api/users/register', {username, password, firstName, lastName, email})
 
     
     localStorage.setItem("data", JSON.stringify(data))

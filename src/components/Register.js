@@ -1,73 +1,88 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {registerUserForm} from "../api/index";
+import {useHistory, Link} from "react-router-dom"
 
-import { useHistory, Link } from "react-router-dom";
-
-import { registerUserForm } from "../api";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-
-const Register = ({ setUser }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const history = useHistory();
+const Register = ({setUser}) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const history = useHistory()
 
   return (
-    <div className="RegisterForm">
-      <Form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "250px",
-          marginTop: "150px",
-          margin: "auto",
-        }}
-        onSubmit={async (event) => {
-          event.preventDefault();
-
-          try {
-            const data = await registerUserForm(username, password);
-            if (data) {
-              setUser(data);
-              history.push("/alcohol");
-            } else {
-              alert("Username already taken! Please try again!");
-            }
-          } catch (error) {}
-        }}
-      >
-        <FormGroup>
-          <Label for="username">Username</Label>
-          <Input
-            type="text"
-            id="username"
-            placeholder="Enter Username"
-            required={true}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            required={true}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </FormGroup>
-        <Button style={{ marginTop: "10px" }} type="submit">
-          Register
-        </Button>
-        <h6>Already have an account? <Link to="loginUser">Login Here</Link></h6>
-      </Form>
-    </div>
-  );
-};
-
+    <div
+   classname="registerPage"
+   >
+   <Form inline
+       onSubmit={async (event) => {
+           event.preventDefault()
+            try {
+                const data = await registerUserForm(email, password, firstName, lastName, username)
+                setUsername(data)
+                history.push('/dogs')
+            }catch (error) {}
+        }}>
+      <Row form>
+       <Col md={6}>
+         <FormGroup>
+           <Label for="email" hidden>Email</Label>
+           <Input type="email" 
+           name="email" 
+           id="email" 
+           required = {true} value={email}
+           onChange={(event) => setEmail(event.target.value)}
+           placeholder="Email" />
+         </FormGroup>
+       </Col>
+       <Col md={6}>
+         <FormGroup>
+           <Label for="password" hidden>Password</Label>
+           <Input type="password" 
+           name="password" 
+           id="password" 
+           required = {true} value={password}
+           onChange={(event) => setPassword(event.target.value)}
+           placeholder="Password" />
+         </FormGroup>
+       </Col>
+     </Row>
+     <FormGroup>
+       <Label for="firstName" hidden>First Name</Label>
+       <Input type="text" 
+       name="firstName" 
+       id="First Name"
+       required = {true} value={firstName}
+       onChange={(event) => setFirstName(event.target.value)}
+       placeholder="First Name"/>
+     </FormGroup>
+     <FormGroup>
+       <Label for="lastName" hidden>Last Name</Label>
+       <Input type="text" 
+       name="lastName" 
+       id="Last Name" 
+       required = {true} value={lastName}
+       onChange={(event) => setLastName(event.target.value)}
+       placeholder="Last Name"/>
+     </FormGroup>
+     <Row form>
+       <Col md={6}>
+         <FormGroup>
+           <Label for="username" hidden>Username</Label>
+           <Input type="text" 
+           name="username" 
+           id="username"
+           required = {true} value={username}
+           onChange={(event) => setUsername(event.target.value)}
+           placeholder="username"/>
+         </FormGroup>
+       </Col>
+     </Row>
+     <Button type="submit">Register</Button>
+     <Link to='loginUser'>Have an account? Sign in!</Link>
+   </Form>
+   </div>
+ );
+}
 export default Register;

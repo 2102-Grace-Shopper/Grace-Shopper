@@ -34,8 +34,8 @@ usersRouter.get("/:userid", async (req, res, next) => {
 
 usersRouter.post('/register', async (req, res, next) => {
 
-    const { username, password } = req.body;
-    const user = await createUser({username, password});
+    const { username, password, email, firstName, isAdmin, lastName } = req.body;
+    const user = await createUser({username, password, email, firstName, isAdmin, lastName});
 
     
 
@@ -60,7 +60,6 @@ usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
     console.log("this is rec:", req.body)
     const user = await loginUser(username, password);
-    console.log(user)
 
     if (!user) {
         res.status(401).send({message: "User not found."});
@@ -72,10 +71,10 @@ usersRouter.post('/login', async (req, res, next) => {
             user: {
                 id: user.id,
                 username: user.username,
-                isAdmin: user.isAdmin
             },
             token
         })
+        console.log("this is send:", res.send)
     }
 })
 

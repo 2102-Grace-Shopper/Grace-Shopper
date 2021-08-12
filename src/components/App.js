@@ -24,7 +24,10 @@ const App = () => {
     <Router>
       <Switch>
       <div className="App">
-      <NavReact />
+      <NavReact
+        user = {user}
+        setUser = {setUser}
+        />
       <Route path='/dogs'>
         <GetAllDogs
         dogs = {dogs}

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {loginUserForm} from "../api/index";
 import { useHistory, Link} from "react-router-dom"
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = ({setUser}) => {
     const [username, setUsername] = useState("")
@@ -17,9 +18,14 @@ const Login = ({setUser}) => {
 
         try {
             const data = await loginUserForm(username, password)
+            if (data) {
             setUser(data)
-            console.log(data)
+            console.log("User has signed in:", data)
+            alert("Logged In")
             history.push('/products')
+            } else {
+                alert('Incorrect credentials')
+            }
         } catch (error) {}
     }}>
       <FormGroup>
