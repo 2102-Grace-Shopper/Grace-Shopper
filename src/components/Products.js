@@ -18,6 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllProducts = (props) => {
     const { products, setProducts} = props;
+    console.log(props)
     const history = useHistory();
     useEffect(() => {
        getProducts()
@@ -27,17 +28,18 @@ const GetAllProducts = (props) => {
        .catch(console.error)
     }, [setProducts])
 
-    const onAdd = (product)=> {
-      const exist = products.find((x) => x.id === product.id)
-      if(exist) {
-          setProducts(products.map((x) => 
-          x.id === product.id ? {...exist, qty: exist.qty + 1} : x
-          )
-          );
-      } else {
-          setProducts([...products, {...product, qty:1}])
-      }
-  } 
+  //   const onAdd = (product)=> {
+  //     const exist = products.find((x) => x.id === product.id)
+  //     if(exist) {
+  //         setProducts(products.map((x) => 
+  //         x.id === product.id ? {...exist, qty: exist.qty + 1} : x
+  //         )
+  //         );
+  //     } else {
+  //         setProducts([...products, {...product, qty:1}])
+  //     }
+  //     console.log(onAdd, 'we are in carts')
+  // } 
     console.log(products)
 
     return (
@@ -93,7 +95,8 @@ const GetAllProducts = (props) => {
                       {products.description}
                     </CardText>
                  <Button onClick={async () => { 
-                      await onAdd(products); 
+                      await addProductsToOrders(products); 
+                      console.log('we up in this b')
                       history.push('/orders/')
                     }
                   }>

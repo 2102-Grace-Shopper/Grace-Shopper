@@ -17,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllOrder = (props) => {
     const { orders, setOrders } = props;
+    console.log(props)
     const history = useHistory();
     useEffect(() => {
        getOrders()

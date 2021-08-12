@@ -13,7 +13,7 @@ import './Styles.css'
 
 const App = () => {
   const [dogs, setDogs] = useState([]);
-  const [products, setProducts, onAdd] = useState([]);
+  const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -35,7 +35,6 @@ const App = () => {
       </Route>
       <Route path='/products'>
         <GetAllProducts
-        onAdd = {onAdd}
         products = {products}
         setProducts = {setProducts}
         />
