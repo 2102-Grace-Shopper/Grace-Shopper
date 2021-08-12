@@ -52,7 +52,7 @@ export async function getOrders() {
 
 export async function addProductsToOrders(productId) {
   try {
-    const {data} = await axios.post('/api/orders', {productId})
+    const {data} = await axios.post('/api/orders', {productId, datePlaced: new Date()})
     return data
   } catch (error) {
     console.error(error)
@@ -120,9 +120,9 @@ export async function removeDogFromWishlist(userId, dogId) {
   }
 }
 
-export async function removeProductFromOrder(userId, productId) {
+export async function removeProductFromOrder(productId) {
   try {
-    const{data} = await axios.post('/api/orders/remove', {userId, productId})
+    const{data} = await axios.delete('/api/orders/', {productId})
     return data
   } catch(error) {
     console.log(error)

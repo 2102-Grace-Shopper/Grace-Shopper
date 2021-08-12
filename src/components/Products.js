@@ -27,19 +27,6 @@ const GetAllProducts = (props) => {
        })
        .catch(console.error)
     }, [setProducts])
-
-  //   const onAdd = (product)=> {
-  //     const exist = products.find((x) => x.id === product.id)
-  //     if(exist) {
-  //         setProducts(products.map((x) => 
-  //         x.id === product.id ? {...exist, qty: exist.qty + 1} : x
-  //         )
-  //         );
-  //     } else {
-  //         setProducts([...products, {...product, qty:1}])
-  //     }
-  //     console.log(onAdd, 'we are in carts')
-  // } 
     console.log(products)
 
     return (

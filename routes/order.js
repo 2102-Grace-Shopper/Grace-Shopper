@@ -33,6 +33,7 @@ orderRouter.get('/:orderId', async(req, res, next) => {
 orderRouter.post('/', async(req, res, next) => {
    const {status, datePlaced } = req.body;
    try {
+       console.log(datePlaced)
        const newOrder = await createOrders({status, datePlaced})
        res.send(newOrder)
    } catch (error) {
