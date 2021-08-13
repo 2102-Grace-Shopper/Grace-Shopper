@@ -66,7 +66,7 @@ const GetAllDogs = (props) => {
                     Age: {dogs.age} Years Old
                     <br/>
                     <br/>
-                    Breed {dogs.breed} 
+                    Breed: {dogs.breed} 
                     <br/>
                     <br/>
                     Price: ${dogs.price}

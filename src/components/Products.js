@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 
-import {getProducts} from "../api/index"
+import {getProducts, addProductsToOrders} from "../api/index"
+
+import {useHistory} from 'react-router-dom'
 
 import {
     Card,
@@ -15,7 +17,8 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllProducts = (props) => {
-    const { products, setProducts } = props;
+    const { products, setProducts} = props;
+    const history = useHistory();
     useEffect(() => {
        getProducts()
        .then((products) => {
@@ -23,7 +26,6 @@ const GetAllProducts = (props) => {
        })
        .catch(console.error)
     }, [setProducts])
-
     console.log(products)
 
     return (
@@ -55,30 +57,35 @@ const GetAllProducts = (props) => {
                     src={products.imageURL}
                     alt="Card image cap"
                     style={{
-                      marginTop: "10px",
-                      marginBottom: "10px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignSelf: "center",
-                      maxHeight: "150px",
-                      maxWidth: "275px",
+                       marginTop: "10px",
+                        marginBottom: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignSelf: "center",
+                        maxHeight: "150px",
+                        maxWidth: "150px",
                     }}
                   />
                   <CardBody>
                     <CardTitle tag="h5">{products.name}</CardTitle>
                     <br/>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      Price: {products.price}
+                      Price: ${products.price}
                       <br/>
                       <br/>
-                      inStock: ${products.inStock}
+                      inStock: {products.inStock}
                     </CardSubtitle>
                     <CardText>
                       Description:
                       <br/>  
                       {products.description}
                     </CardText>
-                    <Button>Add To Cart</Button>
+                 <Button onClick={async () => { 
+                      await addProductsToOrders(products); 
+                      history.push('/orders/')
+                    }
+                  }>
+                    Add To Cart</Button>
                   </CardBody>
                 </Card>
               </div>
