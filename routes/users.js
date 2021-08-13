@@ -5,7 +5,7 @@ const {createUser,
     getUserById,
     loginUser} = require("../db/users")
 
-const {getToken} = require('./userToken')
+const {createJWT} = require('./UserToken')
 
 usersRouter.get("/", async (req, res, next) => {
 
@@ -25,50 +25,65 @@ usersRouter.get("/:username", async (req, res, next) => {
     res.send(user);
 });
 
-usersRouter.get("/:id", async (req, res, next) => {
-    const {id} = req.params;
-    const user = await getUserById(id);
+usersRouter.get("/:userid", async (req, res, next) => {
+    const {userId} = req.params;
+    const user = await getUserById(userId);
 
     res.send(user);
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-    const { username, password, firstName, lastName, email } = req.body
-    const user = await createUser({username, password, firstName, lastName, email})
 
-    if(user) {
-        const token = getToken(user.username, user.id)
+    const { username, password, email, firstName, isAdmin, lastName } = req.body;
+    const user = await createUser({username, password, email, firstName, isAdmin, lastName});
+
+    
+
+
+    if (!user) {
+        res.status(401).send({message: "User could not be registered."});
+    } else {
+        const token = createJWT(user.username, user.id);
+
         res.send({
-            message: "You have successfully registered an account! Please log in.",
+            message: "Registration Successful.",
             user: {
                 id: user.id,
                 username: user.username
             },
             token
         })
-    }else{
-        res.status(401).send({message: "Unable to register an account. Please try again."}) 
     }
-});
+})
 
 usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
+    console.log("this is rec:", req.body)
     const user = await loginUser(username, password);
 
-    if (user) {
-        const token = getToken(user.username, user.id);
+    if (!user) {
+        res.status(401).send({message: "User not found."});
+    } else {
+        const token = createJWT(user.username, user.id);
 
         res.send({
-            message: "You are now logged in.",
+            message: "Login Successful.",
             user: {
                 id: user.id,
-                username: user.username
+                username: user.username,
             },
             token
         })
-    }else {
-        res.status(401).send({message: "User not found. Please try again."});
+        console.log("this is send:", res.send)
     }
-});
+})
+
+usersRouter.get('/whoami', (req, res, next) => {
+    if (req.user) {
+        res.send({user: req.user})
+    } else {
+        res.status(401).send({message: 'You are not a registered user or authenticated user.'})
+    }
+})
 
 module.exports = usersRouter

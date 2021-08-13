@@ -10,7 +10,7 @@ const { createDogs, getAllDogs, getDogById, getDogsByBreadName, updateDog, delet
         const dogs = await getAllDogs()
 
         res.send({
-        dogs : dogs
+         dogs : dogs
         })
         } catch (error) {
         throw error
@@ -21,7 +21,7 @@ const { createDogs, getAllDogs, getDogById, getDogsByBreadName, updateDog, delet
     dogsRouter.get("/:id", async (req, res, next) => {
 
         const { id } = req.params
-        console.log(id)
+            console.log(id)
 
         try {
         const dogId = await getDogById(id)
@@ -59,7 +59,7 @@ const { createDogs, getAllDogs, getDogById, getDogsByBreadName, updateDog, delet
         const dogData = {};
     
         if (breeds.length > 0) {
-        dogData.breeds = breeds;
+         dogData.breeds = breeds;
         }
     
         try {
@@ -77,6 +77,7 @@ const { createDogs, getAllDogs, getDogById, getDogsByBreadName, updateDog, delet
         throw error;
         }
     });
+
   
   // PATCH REQUESTS -----------------------------------------------
 
@@ -94,11 +95,11 @@ const { createDogs, getAllDogs, getDogById, getDogsByBreadName, updateDog, delet
         
         try {
     
-        const deleteThisDog = await deleteDog(id);
-        console.log(deleteThisDog);
+         const deleteThisDog = await deleteDog(id);
+            console.log(deleteThisDog);
 
         } catch (error) {
-        throw error;
+         throw error;
         }
     });
 

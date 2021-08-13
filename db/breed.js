@@ -50,28 +50,31 @@ const createBreeds = async (breedList) => {
     if (breedList.length === 0) return;
   
     const insertValues = breedList.map((_, index) => `$${index + 1}`).join("), (");
+
+    // console.log(insertValues)
     const selectValues = breedList.map((_, index) => `$${index + 1}`).join(", ");
   
+    //Try to remove parenths in Values
     try {
       await client.query(
         `
       INSERT INTO breed (name) 
-      VALUES (${insertValues})
+      VALUES (${insertValues}) 
       ON CONFLICT (name) DO NOTHING
       returning *;
       `,
         breedList
       );
   
-      const { rows } = await client.query(
-        `
-        SELECT * 
-        FROM breed
-        WHERE name
-        IN (${selectValues})
-        `,
-        breedList
-      );
+      // const { rows } = await client.query(
+      //   `
+      //   SELECT * 
+      //   FROM breed
+      //   WHERE name
+      //   IN (${selectValues})
+      //   `,
+      //   breedList
+      // );
 
     //   console.log("This is the createBreeds() Test: ", rows)
   
