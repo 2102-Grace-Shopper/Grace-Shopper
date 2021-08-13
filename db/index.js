@@ -1,6 +1,6 @@
 module.exports = {
   ...require('./dogs'),
-  ...require('./breed'),
+  ...require('./breeds'),
   ...require('./dog_breed'),
   ...require('./products'),
   ...require('./users'),

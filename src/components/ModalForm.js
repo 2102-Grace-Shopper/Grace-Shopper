@@ -6,8 +6,9 @@ const ModalForm = (props) => {
     <Form>
       <FormGroup>
         <Label for="exampleEmail">Reserve A Time To Visit!</Label>
-        <Input plaintext value="Some plain text/ static value" />
+        <br/>
       </FormGroup>
+        <br/>
       <FormGroup>
         <Label for="exampleName">Name</Label>
         <Input
@@ -24,15 +25,6 @@ const ModalForm = (props) => {
           name="email"
           id="exampleEmail"
           placeholder="please enter your email"
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleNumber">Number</Label>
-        <Input
-          type="number"
-          name="number"
-          id="exampleNumber"
-          placeholder="please enter your phone number"
         />
       </FormGroup>
       <FormGroup>

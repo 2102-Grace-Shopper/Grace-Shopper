@@ -1,6 +1,6 @@
 const { client } = require('./client');
 const { createDogs } = require('./dogs')
-const { createBreed } = require('./breed')
+const { createBreed } = require('./breeds')
 const { createDogBreed, getDogBreedById, getAllDogBreeds } = require('./dog_breed')
 const { createReviews } = require('./reviews')
 const { createOrders, getOrders } = require('./orders');
@@ -33,6 +33,7 @@ async function buildTables() {
      CREATE TABLE dogs(
        id SERIAL PRIMARY KEY,
        name VARCHAR UNIQUE,
+       breed VARCHAR(255) NOT NULL,
        description VARCHAR(255) NOT NULL,
        price VARCHAR(255) NOT NULL,
        age INTEGER,
@@ -103,31 +104,35 @@ async function populateInitialDogData() {
       { 
         id: 1,
         name: "Fido",
-        description: "a classic great dog",
+        breed: "Pug",
+        description: "A classic great dog.",
         price: 125.00,
-        age: 2,
+        age: 1,
         imageURL: "https://i.postimg.cc/kG8bKwrR/815167e9-f69a-4557-84de-e7eba5c2ba53.jpg"
       },
       { 
         id: 2,
         name: "Bella",
-        description: "smart and witty",
+        breed: "Doge Master",
+        description: "Smart and witty.",
         price: 125.00,
-        age: 2,
+        age: 100,
         imageURL: "https://i.postimg.cc/GhsYX65M/8536-28743-5665.jpg"
       },
       { 
         id: 3,
         name: "Charlie",
-        description: "loves to play fetch",
+        breed: "Fox Hound",
+        description: "Loves to play fetch.",
         price: 125.00,
-        age: 2,
+        age: 4,
         imageURL: "https://i.postimg.cc/BZjMGYzF/1326984c-39b0-492c-a773-f120d747a7e2.jpg"
       },
       { 
         id: 4,
         name: "Lucy",
-        description: "fast and playful",
+        breed: "German Sheppard",
+        description: "Fast and playful.",
         price: 125.00,
         age: 2,
         imageURL: "https://i.postimg.cc/XNtxNKMz/1ef19cb9-b8a6-47b8-bde2-ac9383ac5af0.jpg"
@@ -135,15 +140,17 @@ async function populateInitialDogData() {
       { 
         id: 5,
         name: "Duke",
-        description: "a beautiful hairy dog",
+        breed: "Corgi",
+        description: "A beautiful hairy dog.",
         price: 125.00,
-        age: 2,
+        age: 6,
         imageURL: "https://i.postimg.cc/brSGF23G/2505f628-614d-4521-a26b-70897a51d4fd.jpg"
       },
       { 
         id: 6,
         name: "Molly",
-        description: "loves to hangout in the sunshine",
+        breed: "Labradore",
+        description: "Loves to hangout in the sunshine.",
         price: 125.00,
         age: 2,
         imageURL: "https://i.postimg.cc/PrZyCLTr/440f11bf-b9d4-44de-a5c3-3f0893b04fa2.jpg"
@@ -151,31 +158,35 @@ async function populateInitialDogData() {
       { 
         id: 7,
         name: "JoJo",
-        description: "a great cuddler",
+        breed: "Komondor",
+        description: "A great cuddler.",
         price: 125.00,
-        age: 2,
+        age: 8,
         imageURL: "https://i.postimg.cc/Vk8RnYk9/5dfed833-2fc2-4962-abda-cbb65d1370d6.jpg"
       },
       { 
         id: 8,
         name: "Oliver",
-        description: "a very sophisticated animal",
+        breed: "Shiba Inu",
+        description: "A very sophisticated animal.",
         price: 125.00,
-        age: 2,
+        age: 13,
         imageURL: "https://i.postimg.cc/fk434Tr8/8617-11546-19302.jpg"
       },
       { 
         id: 9,
         name: "Penny",
-        description: "a bit ferocious but a nice dog",
+        breed: "Shitzu",
+        description: "A bit ferocious but a nice dog.",
         price: 125.00,
-        age: 2,
+        age: 3,
         imageURL: "https://i.postimg.cc/T2mBw2qy/16511ded-7464-4481-b26e-b3411957a42c.png"
       },
       { 
         id: 10,
         name: "Zeus",
-        description: "the king of all dogs",
+        breed: "German Sheppard",
+        description: "The king of all dogs.",
         price: 125.00,
         age: 2,
         imageURL: "https://i.postimg.cc/sxpL0KDP/vh7i79y2qhhy.jpg"
@@ -183,63 +194,71 @@ async function populateInitialDogData() {
       { 
         id: 11,
         name: "Scout",
-        description: "the best adventure dog in the world",
+        breed: "Black Lab",
+        description: "The best adventure dog in the world.",
         price: 125.00,
-        age: 2,
+        age: 9,
         imageURL: "https://i.postimg.cc/4dHqpsDS/14769-27888-18622.jpg"
       },
       { 
         id: 12,
         name: "Crinkles",
-        description: "the most lovable face ever",
+        breed: "Labradore Retriever",
+        description: "The most lovable face ever.",
         price: 125.00,
-        age: 2,
+        age: 4,
         imageURL: "https://i.postimg.cc/D0VDgRFy/24141-29115-27188.jpg"
       },
       { 
         id: 13,
         name: "Moose",
-        description: "big, cuddly and hairy",
+        breed: "Pit Bull",
+        description: "Big, cuddly and hairy.",
         price: 125.00,
-        age: 2,
+        age: 1,
         imageURL: "https://i.postimg.cc/9ffWyMhx/beed82eb-f861-4532-a96c-72fc2f3e0147.png"
       },
       { 
         id: 14,
         name: "Dexter",
-        description: "too smart for his own good",
+        breed: "Rat Pug",
+        description: "Too smart for his own good.",
         price: 125.00,
-        age: 2,
+        age: 1,
         imageURL: "https://i.postimg.cc/PxpTFRNY/5e0deefd-427f-478f-9d04-0103d8969d67.jpg"
       },
       { 
         id: 15,
         name: "Bandit",
-        description: "he'll still your food, but you'll still love him",
+        breed: "Siberian Husky",
+        description: "He'll still your food, but you'll still love him.",
         price: 125.00,
-        age: 2,
+        age: 5,
         imageURL: "https://i.postimg.cc/65NtYzK4/d7ae7fc7-e254-45da-8ac4-6afb898b6cc2.png"
       },
       { 
         id: 16,
         name: "Oakley",
-        description: "a pretty amazing dog",
+        breed: "Golden Retriever",
+        description: "A pretty amazing dog.",
         price: 125.00,
-        age: 2,
+        age: 1,
         imageURL: "https://i.postimg.cc/yx0B73mN/062013b4-8bad-4a6a-a69c-e4de7fdd86d8.jpg"
       },
       { 
         id: 17,
         name: "Ace",
-        description: "always comes through when you need him",
+        breed: "English Creme Lab",
+        description: "Always comes through when you need him.",
         price: 125.00,
-        age: 2,
+        age: 3,
         imageURL: "https://i.postimg.cc/SsBk0fz5/5af10b62-c508-4bbc-b5e2-142d25d842a2.jpg"
       },
       { 
         id: 18,
         name: "Winnie",
-        description: "old and wise",
+        breed: "Text",
+        description: "Old and wise.",
         price: 125.00,
         age: 2,
         imageURL: "https://i.postimg.cc/gchGVQCP/831a74df-8de4-4150-a70f-12bd984f4bb4.jpg"
@@ -247,17 +266,19 @@ async function populateInitialDogData() {
       { 
         id: 19,
         name: "Dakota",
-        description: "the perfect mountain dog for your backpacking adventures",
+        breed: "Chow Chow",
+        description: "The perfect mountain dog for your backpacking adventures.",
         price: 125.00,
-        age: 2,
+        age: 6,
         imageURL: "https://i.postimg.cc/gJ76ZhQ6/c814f405-4bf3-40ac-a7a3-7adbf5ef8703.jpg"
       },
       { 
         id: 20,
         name: "Sunny",
-        description: "always smiling, making you laugh",
+        breed: "CatDog",
+        description: "Always smiling, making you laugh.",
         price: 125.00,
-        age: 2,
+        age: 55,
         imageURL: "https://i.postimg.cc/vBcfdKF1/84cd21fe-6185-4b55-b075-7bc1418bf731.jpg"
       }
     ];
@@ -368,6 +389,7 @@ async function populateInitialDogBreedData(){
   }
 }
 
+
 async function populateInitialUsers() {
   try {
     console.log("Creating users...");
@@ -398,12 +420,11 @@ async function populateInitialUsers() {
         email: "dundermifflin@gmail.com",
         username: "michaelscott",
         password: "password",
-        isAdmin: false
+        isAdmin: false,
       }
     ]
     const launchUsers = await Promise.all(seedUsers.map((user) => createUser(user)))
-    // console.log('Here are the users', launchUsers);
-    console.log('Users are seeded');
+    console.log('Here are your initial users:', launchUsers)
   } catch (error) {
     throw error;
   }

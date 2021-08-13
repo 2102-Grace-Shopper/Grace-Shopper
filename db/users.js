@@ -65,7 +65,7 @@ async function createUser({
     }
   };
 
-  async function getUserById(id) {
+  async function getUserById(userId) {
     try {
       const {
         rows: [user],
@@ -73,7 +73,7 @@ async function createUser({
         `
           SELECT *
           FROM users
-          WHERE id=$1
+          WHERE id=${userId}
         `,
         [user]
       );
@@ -107,18 +107,17 @@ async function createUser({
 
   async function loginUser(username, password) {
     try {
-        const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
       const { rows: [user] } = await client.query(`
         SELECT * FROM users 
         WHERE username=$1;
       `, [username])
-  
+        console.log("this is the user:", user)
       if (!user) {
         return null;
       }
 
-      const correctPW = await bcrypt.compare(hashedPassword, user.password);
+      const correctPW = await bcrypt.compare(password, user.password);
       if (!correctPW) {
         return null;
       }

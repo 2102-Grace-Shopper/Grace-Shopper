@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getDogs } from "../api/index";
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
+import DogModal from "./DogModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -8,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllDogs = (props) => {
     const { dogs, setDogs } = props;
+    const [modal, setModal] = useState(false);
   
     useEffect(() => {
       getDogs()
@@ -64,14 +66,18 @@ const GetAllDogs = (props) => {
                     Age: {dogs.age} Years Old
                     <br/>
                     <br/>
+                    Breed {dogs.breed} 
+                    <br/>
+                    <br/>
                     Price: ${dogs.price}
-                  </CardSubtitle>
-                  <CardText>
+                    <br/>
+                    <br/>
                     Description:
                     <br/>  
                     {dogs.description}
-                  </CardText>
-                  <Button>Request Dog Visit!</Button>
+                  </CardSubtitle>
+                  <Button onClick={() => setModal(true)}>Request Dog Visit!</Button>
+                  <DogModal modal={modal}>Modal Modal</DogModal>
                 </CardBody>
               </Card>
             </div>
