@@ -9,6 +9,16 @@ export async function getDogs() {
   }
 }
 
+export async function getDogsHome() {
+  try{
+  const { data: {dogs} } = await axios.get('/api/home')
+  return dogs
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 export async function getProducts() {
 
   try{
@@ -31,12 +41,40 @@ export async function getUsers() {
 
 }
 
-export async function registerUserForm(username, password, firstName, lastName, email) {
+export async function getOrders() {
   try {
-    const {data} = await axios.post('/api/users/register', {username, password, firstName, lastName, email})
+    const { data } = await axios.get('/api/orders')
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function addProductsToOrders(productId) {
+  try {
+    const {data} = await axios.post('/api/orders', {productId, datePlaced: new Date()})
+    return data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function checkOut() {
+  try {
+    const { data } = await axios.patch('/api/orders/checkout')
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function registerUserForm(username, password) {
+  try {
+    const {data} = await axios.post('/api/users/register', {username, password})
 
     
-    localStorage.setItem("data", JSON.stringify(data))
+    localStorage.setItem("token", JSON.stringify(data.token))
+    localStorage.setItem("userId", JSON.stringify(data.user.id))
     return data;
   } catch (error) {
     console.log(error)
@@ -58,44 +96,17 @@ export async function loginUserForm(username, password) {
 export async function logoutUser() {
   try {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function addDogToWishlist(userId, dogId) {
+export async function removeProductFromOrder(productId) {
   try {
-    const {data} = await axios.post('/api/wishlist/add', {userId, dogId})
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export async function removeDogFromWishlist(userId, dogId) {
-  try{
-    const{data} = await axios.post('/api/wishlist/remove', {userId, dogId})
+    const{data} = await axios.delete('/api/orders/', {productId})
     return data
   } catch(error) {
-    console.log(error)
-  }
-}
-
-export async function addOrders(orderId) {
-  try {
-    const { data } = await axios.get('/api/order/add', {orderId})
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-//checking out our orders
-export async function checkOut() {
-  try {
-    const { data } = await axios.patch('/api/order/checkout')
-    return data
-  } catch (error) {
     console.log(error)
   }
 }

@@ -1,4 +1,5 @@
-const orderRouter = require('express').Router();
+const express = require('express')
+const orderRouter = express.Router();
 
 const {
     getOrders,
@@ -28,10 +29,11 @@ orderRouter.get('/:orderId', async(req, res, next) => {
     }
 })
 
-//need to fix userId on db
+
 orderRouter.post('/', async(req, res, next) => {
    const {status, datePlaced } = req.body;
    try {
+       console.log(datePlaced)
        const newOrder = await createOrders({status, datePlaced})
        res.send(newOrder)
    } catch (error) {
@@ -72,4 +74,4 @@ orderRouter.delete('/:orderId', async(req, res, next) => {
     }
 })
 
-module.exports = orderRouter
+module.exports = orderRouter;

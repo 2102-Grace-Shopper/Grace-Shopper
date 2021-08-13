@@ -11,7 +11,6 @@ createProduct,
 destroyProduct
 } = require('../db/index');
 
-//fix t
 productRouter.get('/', async (req, res, next) => {
     try {
         const products = await getProduct();

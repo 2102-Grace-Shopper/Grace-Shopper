@@ -1,13 +1,15 @@
 const {client} = require('./client')
 
+const {getReviewsById} = require('./reviews')
+
 async function createProduct(product) {
-    const {name, description, price, inStock, imageUrl, category } = product;
+    const {name, description, price, inStock, imageURL, category } = product;
      try {
          const { rows: [product] } = await client.query(`
-         INSERT INTO products(name, description, price, inStock, imageUrl, category)
+         INSERT INTO products(name, description, price, "inStock", "imageURL", category)
          VALUES($1, $2, $3, $4, $5, $6)
          RETURNING *
-         `, [name, description, price, inStock, imageUrl, category])
+         `, [name, description, price, inStock, imageURL, category])
 
          return product;
      } catch (error) {
@@ -42,7 +44,6 @@ async function getProductByCategory(category) {
     }
 }
 
-//Under Construction... still waiting for reviews to add onto...
 async function getProductById(id) {
     try {
         const { rows: [product] } = await client.query(`
@@ -50,6 +51,11 @@ async function getProductById(id) {
         FROM products
         WHERE id=$1
         `, [id])
+
+        product.reviews = await getReviewsById(product.id)
+        product.reviews.forEach(review => {
+            delete review.productId
+        });
 
         return product
     } catch (error) {

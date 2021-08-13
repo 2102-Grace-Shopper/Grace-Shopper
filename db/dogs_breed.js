@@ -8,7 +8,6 @@ const createDogBreed = async (dogId, breedId) => {
         `
               INSERT INTO dog_breed ("dogId", "breedId")
               VALUES($1, $2)
-              ON CONFLICT ("dogId","breedId") DO NOTHING
               RETURNING *;
           `,
         [dogId, breedId]
@@ -40,7 +39,7 @@ const createDogBreed = async (dogId, breedId) => {
     }
   };
 
-  //Works!
+  //Works! -- change function name to getDogetc.....
   const getAllDogBreeds = async (dogId) => {
     try {
       const { rows } = await client.query(

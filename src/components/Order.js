@@ -1,5 +1,10 @@
+//CART/ORDER REACT UNDER CONSTRUCTION 
 import React, {useEffect} from "react";
-import { addOrders } from "../api/index"
+
+import { getOrders, removeProductFromOrder, checkOut } from "../api/index"
+
+import {useHistory} from 'react-router-dom'
+
 import {
     Card,
     CardBody,
@@ -12,8 +17,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const GetAllOrder = (props) => {
     const { orders, setOrders } = props;
+    console.log(props)
+    const history = useHistory();
     useEffect(() => {
-       addOrders()
+       getOrders()
        .then((orders) => {
            setOrders(orders)
        })
@@ -29,11 +36,18 @@ const GetAllOrder = (props) => {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-around",
+            border: '3px solid black',
             marginTop: '50px',
             marginBottom: "50px"
           }}
         >
-          {orders.map((order, index) => {
+          <div>
+          <Button onClick={() => {
+                  history.push('/products')
+                }}> Back to Products
+                </Button>
+          </div>
+          {orders.map((orders, index) => {
             return (
               <div className="orderType" key={index}>
                 <Card
@@ -49,12 +63,18 @@ const GetAllOrder = (props) => {
                     <CardTitle tag="h1">Your Cart:</CardTitle>
                     <br/>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      Status: {order.status}
+                      Status: {orders.status}
                       <br/>
                       <br/>
-                      Date Placed: {order.datePlaced}
+                      Date Placed: {orders.datePlaced}
                     </CardSubtitle>
-                    <Button>Check Out</Button>
+                    <Button onClick={ async () => {checkOut(orders.id)
+                    }}>Check Out</Button>
+                  <Button onClick={async () => {
+                    await removeProductFromOrder(orders)
+                    console.log('should be removing')
+                  }}
+                  >Remove</Button>
                   </CardBody>
                 </Card>
               </div>
